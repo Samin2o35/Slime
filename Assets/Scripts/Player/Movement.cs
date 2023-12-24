@@ -5,9 +5,12 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Animator anim;
     private float moveInput;
     
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpForce;
+
     [SerializeField] private GameObject rLeg;
     [SerializeField] private GameObject lLeg;
 
@@ -16,6 +19,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         StartDirectionCheck();
     }
 
@@ -30,7 +34,12 @@ public class Movement : MonoBehaviour
 
         if (moveInput > 0 || moveInput < 0)
         {
+            anim.SetBool("isWalking", true);
             TurnCheck();
+        }
+        else 
+        {
+            anim.SetBool("isWalking", false);
         }
 
         rb.velocity = new Vector2 (moveInput * moveSpeed, rb.velocity.y);
