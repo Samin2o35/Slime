@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     private Animator anim;
     private Collider2D col;
     private RaycastHit2D groundHit;
+    private Coroutine resetTriggerCoroutine;
     private float moveInput;
     private float jumpTimeCounter; 
     private bool isJumping;
@@ -114,6 +115,7 @@ public class Movement : MonoBehaviour
             isJumping = true;
             jumpTimeCounter = jumpTime;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            anim.SetTrigger("Jump");
         }
         //Button is being pressed
         else if(UserInput.instance.controls.Jumping.Jump.IsPressed())
@@ -123,19 +125,33 @@ public class Movement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 jumpTimeCounter -= Time.deltaTime;
             }
+            else if(jumpTimeCounter == 0)
+            {
+                isFalling = true;
+                isJumping = false;
+            }
             else
             {
-                isJumping = false;
+                isJumping= false;
             }
         }
         //Button was released this frame
         else if (UserInput.instance.controls.Jumping.Jump.WasReleasedThisFrame())
         {
+            isFalling= true;
             isJumping = false;
+        }
+
+        if(!isJumping && CheckForLand()) 
+        {
+            anim.SetTrigger("Land");
+            resetTriggerCoroutine = StartCoroutine(Reset());
         }
         DrawGroundCheck();
     }
+    #endregion
 
+    #region Ground/Land Check
     private bool IsGrounded()
     {
         groundHit = Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0f, Vector2.down, extraHeight, whatIsGround);
@@ -147,6 +163,32 @@ public class Movement : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private bool CheckForLand()
+    {
+        if(isFalling) 
+        {
+            if(IsGrounded())
+            {
+                isFalling = false;
+                return true;
+            }
+            else 
+            {
+                return false; 
+            }
+        }
+        else 
+        {
+            return false;
+        }
+    }
+
+    private IEnumerator Reset()
+    {
+        yield return null;
+        anim.ResetTrigger("Land");
     }
     #endregion
 
