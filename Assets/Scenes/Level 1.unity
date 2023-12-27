@@ -307,7 +307,7 @@ MonoBehaviour:
   jumpTime: 0.25
   rLeg: {fileID: 952359840}
   lLeg: {fileID: 292937238}
-  extraHeight: 2
+  extraHeight: 0.05
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64

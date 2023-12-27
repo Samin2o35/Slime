@@ -12,7 +12,6 @@ public class Movement : MonoBehaviour
     private float jumpTimeCounter; 
     private bool isJumping;
     private bool isFalling;
-    public bool isGrounded;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
@@ -110,7 +109,7 @@ public class Movement : MonoBehaviour
     private void Jump()
     {
         //Button was pressed this frame
-        if(UserInput.instance.controls.Jumping.Jump.WasPerformedThisFrame() && isGrounded)
+        if(UserInput.instance.controls.Jumping.Jump.WasPressedThisFrame() && IsGrounded())
         {
             isJumping = true;
             jumpTimeCounter = jumpTime;
@@ -137,7 +136,7 @@ public class Movement : MonoBehaviour
         DrawGroundCheck();
     }
 
-    private bool GroundCheck()
+    private bool IsGrounded()
     {
         groundHit = Physics2D.BoxCast(col.bounds.center, col.bounds.size, 0f, Vector2.down, extraHeight, whatIsGround);
         if(groundHit.collider != null)
@@ -156,7 +155,7 @@ public class Movement : MonoBehaviour
     private void DrawGroundCheck()
     {
         Color rayColor;
-        if(isGrounded)
+        if(IsGrounded())
         {
             rayColor = Color.green;
         }
