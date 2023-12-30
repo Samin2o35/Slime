@@ -844,6 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   globalShakeForce: 0.1
+  impulseListener: {fileID: 328376240}
 --- !u!4 &1082643841
 Transform:
   m_ObjectHideFlags: 0
@@ -958,6 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c322a05822bffb4491ea37ab6a886f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 18b40127adf09f14a9ee09b9b5bd4bf7, type: 2}
   maxHealth: 10
 --- !u!61 &1108537548
 BoxCollider2D:
@@ -1268,9 +1270,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2089873161}
+  - {fileID: 1082643841}
   - {fileID: 519420032}
   - {fileID: 328376242}
   - {fileID: 1368749849}
   - {fileID: 500861504}
   - {fileID: 1108537546}
-  - {fileID: 1082643841}

@@ -5,10 +5,11 @@ using Cinemachine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
+    private CinemachineImpulseSource impulseSource;
+    [SerializeField] private ScreenShakeProfile profile;
     [SerializeField] private float maxHealth;
     private float currentHealth;
     public bool HasTakenDamage { get ; set ; }
-    private CinemachineImpulseSource impulseSource;
 
     private void Start()
     {
@@ -19,7 +20,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public void Damage(float damageAmount)
     {
-        CameraShakeManager.instance.CameraShake(impulseSource);
+        CameraShakeManager.instance.ScreenShakeFromProfile(profile, impulseSource);
         HasTakenDamage = true;
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
