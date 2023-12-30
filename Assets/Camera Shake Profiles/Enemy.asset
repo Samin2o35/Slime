@@ -14,58 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impactTime: 0.2
   impactForce: 1
-  defaultVelocity: {x: 0, y: -1, z: 0}
+  defaultVelocity: {x: 0, y: -0.2, z: 0}
   impulseCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.125
-      value: 0.6509434
+      time: 0
+      value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 136
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.32830402
-      value: 0.73113596
+      time: 1
+      value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 136
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.52315104
-      value: 0.5470351
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.6489683
-      value: 0.71816134
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.825
-      value: 0.6556604
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  listenerAmplitude: 2
-  listenerFrequency: 2
+  listenerAmplitude: 0.5
+  listenerFrequency: 0.1
   listenerDuration: 0.5
