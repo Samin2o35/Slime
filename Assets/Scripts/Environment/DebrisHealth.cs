@@ -6,8 +6,10 @@ using Cinemachine;
 public class NewBehaviourScript : MonoBehaviour, IDamageable
 {
     private CinemachineImpulseSource impulseSource;
+    private ParticleSystem damageParticlesInstance;
     [SerializeField] private ScreenShakeProfile profile;
     [SerializeField] private float maxHealth;
+    [SerializeField] private ParticleSystem damageParticles;
     private float currentHealth;
     public bool HasTakenDamage { get; set; }
 
@@ -23,6 +25,9 @@ public class NewBehaviourScript : MonoBehaviour, IDamageable
         CameraShakeManager.instance.ScreenShakeFromProfile(profile, impulseSource);
         HasTakenDamage = true;
         currentHealth -= damageAmount;
+        //spawn particles
+        SpawnDamageParticles();
+
         if (currentHealth <= 0)
         {
             Die();
@@ -32,5 +37,10 @@ public class NewBehaviourScript : MonoBehaviour, IDamageable
     private void Die()
     {
         Destroy(gameObject);
+    }
+
+    private void SpawnDamageParticles()
+    {
+        damageParticlesInstance = Instantiate(damageParticles, transform.position, Quaternion.identity);
     }
 }
