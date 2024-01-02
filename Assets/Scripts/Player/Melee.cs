@@ -50,7 +50,7 @@ public class Melee : MonoBehaviour
                 if (iDamageable != null && iDamageable.HasTakenDamage == false)
                 {
                     //apply damage to hit targets
-                    iDamageable.Damage(damageAmount);
+                    iDamageable.Damage(damageAmount, transform.right);
                     targets.Add(iDamageable);
                 }
             }

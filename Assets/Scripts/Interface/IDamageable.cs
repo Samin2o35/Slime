@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void Damage(float damageAmount);
+    public void Damage(float damageAmount, Vector2 attackDirection);
 
     public bool HasTakenDamage { get; set; }
 }

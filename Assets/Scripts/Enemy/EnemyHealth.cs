@@ -20,13 +20,13 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
-    public void Damage(float damageAmount)
+    public void Damage(float damageAmount, Vector2 attackDirection)
     {
         CameraShakeManager.instance.ScreenShakeFromProfile(profile, impulseSource);
         HasTakenDamage = true;
         currentHealth -= damageAmount;
         //spawn particles
-        SpawnDamageParticles();
+        SpawnDamageParticles(attackDirection);
 
         if (currentHealth <= 0)
         {
@@ -39,8 +39,9 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         Destroy(this.gameObject);
     }
 
-    private void SpawnDamageParticles()
+    private void SpawnDamageParticles(Vector2 attackDirection)
     {
-        damageParticlesInstance = Instantiate(damageParticles, transform.position, Quaternion.identity);
+        Quaternion spawnRotation = Quaternion.FromToRotation(Vector2.right, attackDirection);
+        damageParticlesInstance = Instantiate(damageParticles, transform.position, spawnRotation);
     }
 }
