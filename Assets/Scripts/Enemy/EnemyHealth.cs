@@ -7,6 +7,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 {
     private CinemachineImpulseSource impulseSource;
     private ParticleSystem damageParticlesInstance;
+    private HealthBar _healthBar;
+
     [SerializeField] private ScreenShakeProfile profile;
     [SerializeField] private float maxHealth;
     [SerializeField] private ParticleSystem damageParticles;
@@ -16,7 +18,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private void Start()
     {
         currentHealth = maxHealth;
-
+        _healthBar = GetComponentInChildren<HealthBar>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
@@ -25,8 +27,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         CameraShakeManager.instance.ScreenShakeFromProfile(profile, impulseSource);
         HasTakenDamage = true;
         currentHealth -= damageAmount;
+        
         //spawn particles
         SpawnDamageParticles(attackDirection);
+        
+        //update health bar according to damage taken
+        _healthBar.UpdateHealthBar(maxHealth, currentHealth);
 
         if (currentHealth <= 0)
         {
