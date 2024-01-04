@@ -5,17 +5,47 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    private Image _image;
+    [SerializeField] private float timeToDrain;
+    [SerializeField] private Gradient healthBarGradient;
+    private float target = 1f;
+    private Image image;
+    private Color newHealthBarColor;
+    private Coroutine drainHealthBarCoroutine;
     
-    // Start is called before the first frame update
     private void Start()
     {
-        _image = GetComponent<Image>();
+        image = GetComponent<Image>();
+        image.color = healthBarGradient.Evaluate(target);
+        CheckHealthBarGradient();
     }
 
-    // Update is called once per frame
     public void UpdateHealthBar(float maxHealth, float currentHealth)
     {
-        _image.fillAmount = currentHealth / maxHealth;
+        target = currentHealth / maxHealth;
+        drainHealthBarCoroutine = StartCoroutine(DrainHealthBar());
+        CheckHealthBarGradient();
+    }
+
+    private IEnumerator DrainHealthBar()
+    {
+        float fillAmount = image.fillAmount;
+        Color currentColor = image.color;
+        float elapsedTime = 0f;
+        
+        while(elapsedTime < timeToDrain) 
+        {
+            elapsedTime += Time.deltaTime;
+            //lerp the fill amount
+            image.fillAmount = Mathf.Lerp(fillAmount, target, elapsedTime / timeToDrain);
+
+            //lerp the color based on gradient
+            image.color = Color.Lerp(currentColor, newHealthBarColor, (elapsedTime / timeToDrain));
+            yield return null;
+        }
+    }
+
+    private void CheckHealthBarGradient()
+    {
+        newHealthBarColor = healthBarGradient.Evaluate(target);
     }
 }
