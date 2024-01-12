@@ -7,6 +7,7 @@ public class NewBehaviourScript : MonoBehaviour, IDamageable
 {
     private CinemachineImpulseSource impulseSource;
     private ParticleSystem damageParticlesInstance;
+
     [SerializeField] private ScreenShakeProfile profile;
     [SerializeField] private float maxHealth;
     [SerializeField] private ParticleSystem damageParticles;
@@ -25,6 +26,7 @@ public class NewBehaviourScript : MonoBehaviour, IDamageable
         CameraShakeManager.instance.ScreenShakeFromProfile(profile, impulseSource);
         HasTakenDamage = true;
         currentHealth -= damageAmount;
+        
         //spawn particles
         SpawnDamageParticles(attackDirection);
 
