@@ -18,6 +18,10 @@ public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable
     public Rigidbody2D rb { get; set; }
     public bool isFacingRight { get; set; } = true;
 
+    // idle variables
+    public float randomMovementRange;
+    public float randomMovementSpeed;
+
     // state machines
     public EnemyCurrentState stateMachine { get; set; }
     public EnemyIdleState idleState { get; set; }

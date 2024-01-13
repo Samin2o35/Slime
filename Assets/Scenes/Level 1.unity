@@ -1231,6 +1231,8 @@ MonoBehaviour:
   profile: {fileID: 11400000, guid: 18b40127adf09f14a9ee09b9b5bd4bf7, type: 2}
   maxHealth: 5
   damageParticles: {fileID: 6597422311147691902, guid: 15ea3c8a0b529d741af36337beb1290d, type: 3}
+  randomMovementRange: 2
+  randomMovementSpeed: 2
 --- !u!1 &1157609784
 GameObject:
   m_ObjectHideFlags: 0
