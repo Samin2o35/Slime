@@ -221,7 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 292937239}
   - component: {fileID: 292937240}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: lLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 500861509}
   - component: {fileID: 500861505}
   - component: {fileID: 500861510}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -900,7 +900,7 @@ GameObject:
   m_Component:
   - component: {fileID: 952359841}
   - component: {fileID: 952359842}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1272,6 +1272,7 @@ MonoBehaviour:
     m_Bits: 64
   circleRadius: 0.05
   moveSpeed: 0.5
+  waitTime: 2
 --- !u!1 &1157609784
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,7 +1387,7 @@ GameObject:
   - component: {fileID: 1213166405}
   - component: {fileID: 1213166404}
   - component: {fileID: 1213166403}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1758,7 +1759,7 @@ GameObject:
   - component: {fileID: 1529177497}
   - component: {fileID: 1529177496}
   - component: {fileID: 1529177498}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: HealthBarImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1874,7 +1875,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1902134662}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: attackTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
