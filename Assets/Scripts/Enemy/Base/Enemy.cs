@@ -6,26 +6,76 @@ using Unity.VisualScripting;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    private CinemachineImpulseSource impulseSource;
-    private ParticleSystem damageParticlesInstance;
-    private HealthBar healthBar;
+    private Rigidbody2D enemyRb;
+    private Animator enemyAnim;
 
+    [Header("ScreenShake")]
     [SerializeField] private ScreenShakeProfile profile;
+    private CinemachineImpulseSource impulseSource;
+
+    [Header("Health")]
     [SerializeField] private float maxHealth;
-    [SerializeField] private ParticleSystem damageParticles;
+    private HealthBar healthBar;
     private float currentHealth;
     public bool HasTakenDamage { get; set; }
-    public Rigidbody2D rb { get; set; }
-    public bool isFacingRight { get; set; } = true;
+
+    [Header("Particles")]
+    private ParticleSystem damageParticlesInstance;
+    [SerializeField] private ParticleSystem damageParticles;
+
+    [Header("Patrol")]
+    [SerializeField] Transform groundCheckPoint;
+    [SerializeField] Transform wallCheckPoint;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private float circleRadius;
+    [SerializeField] private float moveSpeed;
+
+    private float moveDirection = 1f;
+    private bool isFacingRight = true;
+    private bool isCheckingForGround;
+    private bool isCheckingForWall;
 
     private void Start()
     {
         currentHealth = maxHealth;
-        rb = GetComponent<Rigidbody2D>();
+        enemyAnim = GetComponent<Animator>();
+        enemyRb = GetComponent<Rigidbody2D>();
         healthBar = GetComponentInChildren<HealthBar>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
+    private void FixedUpdate()
+    {
+        isCheckingForGround = Physics2D.OverlapCircle(groundCheckPoint.position, circleRadius, whatIsGround);
+        isCheckingForWall = Physics2D.OverlapCircle(wallCheckPoint.position, circleRadius, whatIsGround);
+        Patrol();
+    }
+
+    private void Patrol()
+    {
+        if(!isCheckingForGround || isCheckingForWall)
+        {
+            if(isFacingRight)
+            {
+                Flip();
+            }
+            else if(!isFacingRight)
+            {
+                Flip();
+            }
+        }
+        enemyAnim.SetBool("isRunning", true);
+        enemyRb.velocity = new Vector2(moveSpeed * moveDirection, enemyRb.velocity.y);
+    }
+
+    private void Flip()
+    {
+        moveDirection *= -1f;
+        isFacingRight = !isFacingRight;
+        transform.Rotate(0, 180, 0);
+    }
+
+    #region Damage region
     public void Damage(float damageAmount, Vector2 attackDirection)
     {
         CameraShakeManager.instance.ScreenShakeFromProfile(profile, impulseSource);
@@ -43,11 +93,13 @@ public class Enemy : MonoBehaviour, IDamageable
             Die();
         }
     }
+    
 
     private void Die()
     {
         Destroy(this.gameObject);
     }
+    #endregion
 
     private void SpawnDamageParticles(Vector2 attackDirection)
     {
@@ -55,25 +107,10 @@ public class Enemy : MonoBehaviour, IDamageable
         damageParticlesInstance = Instantiate(damageParticles, transform.position, spawnRotation);
     }
 
-    public void MoveEnemy(Vector2 velocity)
+    private void OnDrawGizmosSelected()
     {
-        rb.velocity = velocity;
-        CheckFacingDirection(velocity);
-    }
-
-    public void CheckFacingDirection(Vector2 velocity)
-    {
-        if (isFacingRight && velocity.x < 0f)
-        {
-            Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
-            transform.rotation = Quaternion.Euler(rotator);
-            isFacingRight = !isFacingRight;
-        }
-        else if (isFacingRight && velocity.x > 0f)
-        {
-            Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
-            transform.rotation = Quaternion.Euler(rotator);
-            isFacingRight = !isFacingRight;
-        }
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(groundCheckPoint.position, circleRadius);
+        Gizmos.DrawWireSphere(wallCheckPoint.position, circleRadius);
     }
 }
