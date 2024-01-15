@@ -1225,14 +1225,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1108537544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c322a05822bffb4491ea37ab6a886f0, type: 3}
+  m_Script: {fileID: 11500000, guid: dc70ddb6c997da14790cc6eed8f777df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 18b40127adf09f14a9ee09b9b5bd4bf7, type: 2}
   maxHealth: 5
   damageParticles: {fileID: 6597422311147691902, guid: 15ea3c8a0b529d741af36337beb1290d, type: 3}
-  randomMovementRange: 2
-  randomMovementSpeed: 2
 --- !u!1 &1157609784
 GameObject:
   m_ObjectHideFlags: 0

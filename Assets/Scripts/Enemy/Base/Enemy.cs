@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using Unity.VisualScripting;
 
-public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable
+public class Enemy : MonoBehaviour, IDamageable
 {
     private CinemachineImpulseSource impulseSource;
     private ParticleSystem damageParticlesInstance;
@@ -18,41 +18,12 @@ public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable
     public Rigidbody2D rb { get; set; }
     public bool isFacingRight { get; set; } = true;
 
-    // idle variables
-    public float randomMovementRange;
-    public float randomMovementSpeed;
-
-    // state machines
-    public EnemyCurrentState stateMachine { get; set; }
-    public EnemyIdleState idleState { get; set; }
-    public EnemyChaseState chaseState { get; set; }
-    public EnemyAttackState attackState { get; set; }
-
-    private void Awake()
-    {
-        stateMachine = new EnemyCurrentState();
-
-        idleState = new EnemyIdleState(this, stateMachine);
-        chaseState = new EnemyChaseState(this,stateMachine);
-        attackState = new EnemyAttackState(this, stateMachine);
-
-    }
     private void Start()
     {
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         healthBar = GetComponentInChildren<HealthBar>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
-    }
-
-    private void Update()
-    {
-        stateMachine.currentEnemyState.FrameUpdate();
-    }
-
-    private void FixedUpdate()
-    {
-        stateMachine.currentEnemyState.PhysicsUpdate();
     }
 
     public void Damage(float damageAmount, Vector2 attackDirection)
@@ -104,16 +75,5 @@ public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable
             transform.rotation = Quaternion.Euler(rotator);
             isFacingRight = !isFacingRight;
         }
-    }
-
-    private void AnimationTriggerEvent(AnimationTriggerType trigger)
-    {
-        stateMachine.currentEnemyState.AnimationTriggerEvent(trigger);
-    }
-
-    public enum AnimationTriggerType
-    {
-        EnemyDamaged,
-        PlayFootstepSound
     }
 }
