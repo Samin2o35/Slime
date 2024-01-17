@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour, IDamageable
     
     public PatrolState patrolState;
     public PlayerDetectedState playerDetectedState;
+    public AttackState attackState;
 
     #region Variable region
 
@@ -48,9 +49,13 @@ public class Enemy : MonoBehaviour, IDamageable
     [Header("Enemy Variables")]
     public float enemySpeed;
     public float playerDetectPauseTime;
+    public float playerDetectedWaitTime;
+    public float stateTime; //keep track of time when we enter new state
+    public float dashTime;
+    public float dashSpeed;
 
     [Header("Booleans")]
-    public bool isFacingRight = true;
+    public int isFacingDirection = 1; //prevents writing multiple if statements
 
     #endregion
 
@@ -58,6 +63,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         patrolState = new PatrolState(this, "patrol");
         playerDetectedState = new PlayerDetectedState(this, "playerDetected");
+        attackState = new AttackState(this, "aggro");
 
         currentState = patrolState;
         currentState.Enter();
@@ -120,6 +126,7 @@ public class Enemy : MonoBehaviour, IDamageable
         currentState.Exit();
         currentState = newState;
         currentState.Enter();
+        stateTime = Time.deltaTime;
     }
 
     #region Damage region
@@ -169,7 +176,7 @@ public class Enemy : MonoBehaviour, IDamageable
         Gizmos.DrawRay(ledgeDetector.position, Vector2.down * rayCastDistance);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(ledgeDetector.position, (isFacingRight ? Vector2.right : Vector2.left) * obstacleDistance);
+        Gizmos.DrawRay(ledgeDetector.position, (isFacingDirection == 1 ? Vector2.right : Vector2.left) * obstacleDistance);
     }
 
     #endregion

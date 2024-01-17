@@ -1026,7 +1026,6 @@ GameObject:
   - component: {fileID: 1108537551}
   - component: {fileID: 1108537549}
   - component: {fileID: 1108537552}
-  - component: {fileID: 1108537553}
   m_Layer: 7
   m_Name: Minion
   m_TagString: Untagged
@@ -1262,6 +1261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c322a05822bffb4491ea37ab6a886f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyRb: {fileID: 0}
   profile: {fileID: 11400000, guid: 18b40127adf09f14a9ee09b9b5bd4bf7, type: 2}
   maxHealth: 5
   damageParticles: {fileID: 6597422311147691902, guid: 15ea3c8a0b529d741af36337beb1290d, type: 3}
@@ -1279,38 +1279,14 @@ MonoBehaviour:
     m_Bits: 8
   rayCastDistance: 0.5
   obstacleDistance: 0.25
-  playerDetectDistance: 0.55
-  enemySpeed: 0.9
-  playerDetectPauseTime: 0.75
---- !u!114 &1108537553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1108537544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f83b01ea1962f8b42ad8f1b8046a1b49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ledgeDetector: {fileID: 1956663127}
-  enemyPos: {fileID: 456185167}
-  alert: {fileID: 1157609784}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  whatIsObstacle:
-    serializedVersion: 2
-    m_Bits: 256
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 8
-  rayCastDistance: 0.5
-  obstacleDistance: 0.25
-  playerDetectDistance: 0.55
-  enemySpeed: 1
+  playerDetectDistance: 1
+  enemySpeed: 0.7
   playerDetectPauseTime: 1
+  playerDetectedWaitTime: 1
+  stateTime: 0
+  dashTime: 2
+  dashSpeed: 2
+  isFacingDirection: 1
 --- !u!1 &1157609784
 GameObject:
   m_ObjectHideFlags: 0
