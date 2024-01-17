@@ -1265,6 +1265,23 @@ MonoBehaviour:
   profile: {fileID: 11400000, guid: 18b40127adf09f14a9ee09b9b5bd4bf7, type: 2}
   maxHealth: 5
   damageParticles: {fileID: 6597422311147691902, guid: 15ea3c8a0b529d741af36337beb1290d, type: 3}
+  ledgeDetector: {fileID: 1956663127}
+  enemyPos: {fileID: 456185167}
+  alert: {fileID: 1157609784}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  whatIsObstacle:
+    serializedVersion: 2
+    m_Bits: 256
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 8
+  rayCastDistance: 0.5
+  obstacleDistance: 0.25
+  playerDetectDistance: 0.55
+  enemySpeed: 0.9
+  playerDetectPauseTime: 0.75
 --- !u!114 &1108537553
 MonoBehaviour:
   m_ObjectHideFlags: 0

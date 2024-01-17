@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EnemyPatrolState : MonoBehaviour
+public class EnemyBaseState : MonoBehaviour
 {
     private Rigidbody2D enemyRb;
     public Transform ledgeDetector;
