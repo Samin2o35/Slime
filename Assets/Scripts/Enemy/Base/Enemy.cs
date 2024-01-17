@@ -23,17 +23,8 @@ public class Enemy : MonoBehaviour, IDamageable
     private ParticleSystem damageParticlesInstance;
     [SerializeField] private ParticleSystem damageParticles;
 
-    [Header("Patrol")]
-    [SerializeField] Transform groundCheckPoint;
-    [SerializeField] Transform wallCheckPoint;
-    [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private float circleRadius;
-    [SerializeField] private float moveSpeed;
-
-    private float moveDirection = 1f;
-    private bool isFacingRight = true;
-    private bool isCheckingForGround;
-    private bool isCheckingForWall;
+    //[Header("Patrol")]
+    
 
     private void Start()
     {
@@ -42,37 +33,6 @@ public class Enemy : MonoBehaviour, IDamageable
         enemyRb = GetComponent<Rigidbody2D>();
         healthBar = GetComponentInChildren<HealthBar>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
-    }
-
-    private void FixedUpdate()
-    {
-        isCheckingForGround = Physics2D.OverlapCircle(groundCheckPoint.position, circleRadius, whatIsGround);
-        isCheckingForWall = Physics2D.OverlapCircle(wallCheckPoint.position, circleRadius, whatIsGround);
-        Patrol();
-    }
-
-    private void Patrol()
-    {
-        if(!isCheckingForGround || isCheckingForWall)
-        {
-            if(isFacingRight)
-            {
-                Flip();
-            }
-            else if(!isFacingRight)
-            {
-                Flip();
-            }
-        }
-        enemyAnim.SetBool("isRunning", true);
-        enemyRb.velocity = new Vector2(moveSpeed * moveDirection, enemyRb.velocity.y);
-    }
-
-    private void Flip()
-    {
-        moveDirection *= -1f;
-        isFacingRight = !isFacingRight;
-        transform.Rotate(0, 180, 0);
     }
 
     #region Damage region
@@ -105,12 +65,5 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         Quaternion spawnRotation = Quaternion.FromToRotation(Vector2.right, attackDirection);
         damageParticlesInstance = Instantiate(damageParticles, transform.position, spawnRotation);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(groundCheckPoint.position, circleRadius);
-        Gizmos.DrawWireSphere(wallCheckPoint.position, circleRadius);
     }
 }
