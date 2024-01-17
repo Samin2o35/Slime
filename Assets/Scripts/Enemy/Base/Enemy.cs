@@ -6,9 +6,14 @@ using Unity.VisualScripting;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
+    public EnemyBaseState currentState;
+    
+    public PatrolState patrolState;
+    public PlayerDetectedState playerDetectedState;
+
     #region Variable region
 
-    private Rigidbody2D enemyRb;
+    public Rigidbody2D enemyRb;
     private Animator enemyAnim;
 
     [Header("ScreenShake")]
@@ -45,10 +50,18 @@ public class Enemy : MonoBehaviour, IDamageable
     public float playerDetectPauseTime;
 
     [Header("Booleans")]
-    private bool isFacingRight = true;
-    private bool isPlayerDetected;
+    public bool isFacingRight = true;
 
     #endregion
+
+    private void Awake()
+    {
+        patrolState = new PatrolState(this, "patrol");
+        playerDetectedState = new PlayerDetectedState(this, "playerDetected");
+
+        currentState = patrolState;
+        currentState.Enter();
+    }
 
     private void Start()
     {
@@ -61,76 +74,53 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        CheckForTerrain();
-        CheckForPlayer();
+        currentState.LogicUpdate();
     }
 
     private void FixedUpdate()
     {
-        if (!isPlayerDetected)
-        {
-            if (isFacingRight)
-            {
-                enemyRb.velocity = new Vector2(enemySpeed, enemyRb.velocity.y);
-            }
-            else
-            {
-                enemyRb.velocity = new Vector2(-enemySpeed, enemyRb.velocity.y);
-            }
-        }
+        currentState.PhysicsUpdate();
     }
 
     #region Player Detection and Patrol region
-    private void CheckForTerrain()
+    public bool CheckForTerrain()
     {
         RaycastHit2D groundHit = Physics2D.Raycast(ledgeDetector.position, Vector2.down, rayCastDistance, whatIsGround);
         RaycastHit2D obstacleHit = Physics2D.Raycast(ledgeDetector.position, Vector2.right, obstacleDistance, whatIsObstacle);
 
         if (groundHit.collider == null || obstacleHit.collider == true)
         {
-            Rotate();
+            return true;
+        }
+        else 
+        {
+            return false;
         }
     }
 
-    private void CheckForPlayer()
+    public bool CheckForPlayer()
     {
         RaycastHit2D playerDetectHitLeft = Physics2D.Raycast(enemyPos.position, Vector2.left, playerDetectDistance, whatIsPlayer);
         RaycastHit2D playerDetectHitRight = Physics2D.Raycast(enemyPos.position, Vector2.right, playerDetectDistance, whatIsPlayer);
 
         if (playerDetectHitLeft.collider == true || playerDetectHitRight.collider == true)
         {
-            StartCoroutine(PlayerDetected());
+            return true;
         }
-        // Only call when player is out of range
-        else if (isPlayerDetected)
+        else
         {
-            StartCoroutine(PlayerNotDetected());
+            return false;
         }
-    }
-
-    IEnumerator PlayerDetected()
-    {
-        isPlayerDetected = true;
-        enemyRb.velocity = Vector2.zero;
-        alert.SetActive(true);
-        yield return new WaitForSeconds(playerDetectPauseTime);
-        Debug.Log("I'mma kill you");
-    }
-
-    IEnumerator PlayerNotDetected()
-    {
-        yield return new WaitForSeconds(playerDetectPauseTime);
-        isPlayerDetected = false;
-        alert.SetActive(false);
-    }
-
-    private void Rotate()
-    {
-        transform.Rotate(0, 180, 0);
-        isFacingRight = !isFacingRight;
     }
 
 #endregion
+
+    public void SwitchState(EnemyBaseState newState)
+    {
+        currentState.Exit();
+        currentState = newState;
+        currentState.Enter();
+    }
 
     #region Damage region
     public void Damage(float damageAmount, Vector2 attackDirection)
