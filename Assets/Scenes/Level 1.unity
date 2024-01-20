@@ -1283,7 +1283,7 @@ MonoBehaviour:
   enemySpeed: 0.7
   playerDetectPauseTime: 1
   playerDetectedWaitTime: 1
-  stateTime: 0
+  stateTime: 0.5
   dashTime: 2
   dashSpeed: 2
   isFacingDirection: 1
