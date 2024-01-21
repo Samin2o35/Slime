@@ -14,12 +14,12 @@ public class PlayerDetectedState : EnemyBaseState
         base.Enter();
 
         enemy.enemyRb.velocity = Vector2.zero;
-        enemy.alert.SetActive(true);
+        enemy.stats.alert.SetActive(true);
     }
 
     public override void Exit()
     {
-        enemy.alert.SetActive(false);
+        enemy.stats.alert.SetActive(false);
     }
     
 
@@ -33,7 +33,7 @@ public class PlayerDetectedState : EnemyBaseState
         }
         else
         {
-            if(Time.time >= enemy.stateTime + enemy.playerDetectedWaitTime)
+            if(Time.time >= enemy.stateTime + enemy.stats.playerDetectedWaitTime)
             {
                 enemy.SwitchState(enemy.attackState);
             }

@@ -6,16 +6,17 @@ using Unity.VisualScripting;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    public EnemyBaseState currentState;
-    
-    public PatrolState patrolState;
-    public PlayerDetectedState playerDetectedState;
-    public AttackState attackState;
-
     #region Variable region
 
     public Rigidbody2D enemyRb;
     private Animator enemyAnim;
+
+    [Header("State Machines")]
+    public EnemyBaseState currentState;
+
+    public PatrolState patrolState;
+    public PlayerDetectedState playerDetectedState;
+    public AttackState attackState;
 
     [Header("ScreenShake")]
     [SerializeField] private ScreenShakeProfile profile;
@@ -31,31 +32,16 @@ public class Enemy : MonoBehaviour, IDamageable
     private ParticleSystem damageParticlesInstance;
     [SerializeField] private ParticleSystem damageParticles;
 
-    [Header("Checkers")]
-    public Transform ledgeDetector;
-    public Transform enemyPos;
-    public GameObject alert;
-
     [Header("Check Environment")]
     public LayerMask whatIsGround;
     public LayerMask whatIsObstacle;
     public LayerMask whatIsPlayer;
 
-    [Header("Check Distance")]
-    public float rayCastDistance;
-    public float obstacleDistance;
-    public float playerDetectDistance;
-
-    [Header("Enemy Variables")]
-    public float enemySpeed;
-    public float playerDetectPauseTime;
-    public float playerDetectedWaitTime;
-    public float stateTime; //keep track of time when we enter new state
-    public float dashTime;
-    public float dashSpeed;
-
     [Header("Booleans")]
     public int isFacingDirection = 1; //prevents writing multiple if statements
+
+    public float stateTime; //keep track of time when we enter new state
+    public EnemyStats stats;
 
     #endregion
 
@@ -91,8 +77,8 @@ public class Enemy : MonoBehaviour, IDamageable
     #region Player Detection and Patrol region
     public bool CheckForTerrain()
     {
-        RaycastHit2D groundHit = Physics2D.Raycast(ledgeDetector.position, Vector2.down, rayCastDistance, whatIsGround);
-        RaycastHit2D obstacleHit = Physics2D.Raycast(ledgeDetector.position, Vector2.right, obstacleDistance, whatIsObstacle);
+        RaycastHit2D groundHit = Physics2D.Raycast(stats.ledgeDetector.position, Vector2.down, stats.groundDistance, whatIsGround);
+        RaycastHit2D obstacleHit = Physics2D.Raycast(stats.ledgeDetector.position, Vector2.right, stats.obstacleDistance, whatIsObstacle);
 
         if (groundHit.collider == null || obstacleHit.collider == true)
         {
@@ -106,8 +92,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public bool CheckForPlayer()
     {
-        RaycastHit2D playerDetectHitLeft = Physics2D.Raycast(enemyPos.position, Vector2.left, playerDetectDistance, whatIsPlayer);
-        RaycastHit2D playerDetectHitRight = Physics2D.Raycast(enemyPos.position, Vector2.right, playerDetectDistance, whatIsPlayer);
+        RaycastHit2D playerDetectHitLeft = Physics2D.Raycast(stats.enemyPos.position, Vector2.left, stats.playerDetectDistance, whatIsPlayer);
+        RaycastHit2D playerDetectHitRight = Physics2D.Raycast(stats.enemyPos.position, Vector2.right, stats.playerDetectDistance, whatIsPlayer);
 
         if (playerDetectHitLeft.collider == true || playerDetectHitRight.collider == true)
         {
@@ -170,13 +156,13 @@ public class Enemy : MonoBehaviour, IDamageable
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(enemyPos.position, playerDetectDistance);
+        Gizmos.DrawWireSphere(stats.enemyPos.position, stats.playerDetectDistance);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(ledgeDetector.position, Vector2.down * rayCastDistance);
+        Gizmos.DrawRay(stats.ledgeDetector.position, Vector2.down * stats.groundDistance);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(ledgeDetector.position, (isFacingDirection == 1 ? Vector2.right : Vector2.left) * obstacleDistance);
+        Gizmos.DrawRay(stats.ledgeDetector.position, (isFacingDirection == 1 ? Vector2.right : Vector2.left) * stats.obstacleDistance);
     }
 
     #endregion

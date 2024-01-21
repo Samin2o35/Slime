@@ -29,7 +29,7 @@ public class AttackState : EnemyBaseState
         base.PhysicsUpdate();
 
         //charge at player if detected, resume patrol if player not detected
-        if (Time.time >= enemy.stateTime + enemy.dashTime)
+        if (Time.time >= enemy.stateTime + enemy.stats.dashTime)
         {
             if (enemy.CheckForPlayer())
             {
@@ -48,6 +48,6 @@ public class AttackState : EnemyBaseState
 
     public void Dash()
     {
-        enemy.enemyRb.velocity = new Vector2(enemy.dashSpeed * enemy.isFacingDirection, enemy.enemyRb.velocity.y);
+        enemy.enemyRb.velocity = new Vector2(enemy.stats.dashSpeed * enemy.isFacingDirection, enemy.enemyRb.velocity.y);
     }
 }
