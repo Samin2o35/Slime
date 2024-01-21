@@ -16,9 +16,4 @@ public class EnemyStats : ScriptableObject
     public float groundDistance;
     public float obstacleDistance;
     public float playerDetectDistance;
-
-    [Header("Checkers")]
-    public Transform ledgeDetector;
-    public Transform enemyPos;
-    public GameObject alert;
 }

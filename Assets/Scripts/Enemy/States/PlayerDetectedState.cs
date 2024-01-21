@@ -14,12 +14,12 @@ public class PlayerDetectedState : EnemyBaseState
         base.Enter();
 
         enemy.enemyRb.velocity = Vector2.zero;
-        enemy.stats.alert.SetActive(true);
+        enemy.alert.SetActive(true);
     }
 
     public override void Exit()
     {
-        enemy.stats.alert.SetActive(false);
+        enemy.alert.SetActive(false);
     }
     
 

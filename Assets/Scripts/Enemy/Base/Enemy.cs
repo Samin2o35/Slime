@@ -37,6 +37,11 @@ public class Enemy : MonoBehaviour, IDamageable
     public LayerMask whatIsObstacle;
     public LayerMask whatIsPlayer;
 
+    [Header("Checkers")]
+    public Transform ledgeDetector;
+    public Transform enemyPos;
+    public GameObject alert;
+
     [Header("Booleans")]
     public int isFacingDirection = 1; //prevents writing multiple if statements
 
@@ -77,8 +82,8 @@ public class Enemy : MonoBehaviour, IDamageable
     #region Player Detection and Patrol region
     public bool CheckForTerrain()
     {
-        RaycastHit2D groundHit = Physics2D.Raycast(stats.ledgeDetector.position, Vector2.down, stats.groundDistance, whatIsGround);
-        RaycastHit2D obstacleHit = Physics2D.Raycast(stats.ledgeDetector.position, Vector2.right, stats.obstacleDistance, whatIsObstacle);
+        RaycastHit2D groundHit = Physics2D.Raycast(ledgeDetector.position, Vector2.down, stats.groundDistance, whatIsGround);
+        RaycastHit2D obstacleHit = Physics2D.Raycast(ledgeDetector.position, Vector2.right, stats.obstacleDistance, whatIsObstacle);
 
         if (groundHit.collider == null || obstacleHit.collider == true)
         {
@@ -92,8 +97,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public bool CheckForPlayer()
     {
-        RaycastHit2D playerDetectHitLeft = Physics2D.Raycast(stats.enemyPos.position, Vector2.left, stats.playerDetectDistance, whatIsPlayer);
-        RaycastHit2D playerDetectHitRight = Physics2D.Raycast(stats.enemyPos.position, Vector2.right, stats.playerDetectDistance, whatIsPlayer);
+        RaycastHit2D playerDetectHitLeft = Physics2D.Raycast(enemyPos.position, Vector2.left, stats.playerDetectDistance, whatIsPlayer);
+        RaycastHit2D playerDetectHitRight = Physics2D.Raycast(enemyPos.position, Vector2.right, stats.playerDetectDistance, whatIsPlayer);
 
         if (playerDetectHitLeft.collider == true || playerDetectHitRight.collider == true)
         {
@@ -156,13 +161,13 @@ public class Enemy : MonoBehaviour, IDamageable
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(stats.enemyPos.position, stats.playerDetectDistance);
+        Gizmos.DrawWireSphere(enemyPos.position, stats.playerDetectDistance);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(stats.ledgeDetector.position, Vector2.down * stats.groundDistance);
+        Gizmos.DrawRay(ledgeDetector.position, Vector2.down * stats.groundDistance);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(stats.ledgeDetector.position, (isFacingDirection == 1 ? Vector2.right : Vector2.left) * stats.obstacleDistance);
+        Gizmos.DrawRay(ledgeDetector.position, (isFacingDirection == 1 ? Vector2.right : Vector2.left) * stats.obstacleDistance);
     }
 
     #endregion
