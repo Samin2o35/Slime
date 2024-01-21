@@ -1283,9 +1283,9 @@ MonoBehaviour:
   enemySpeed: 0.7
   playerDetectPauseTime: 1
   playerDetectedWaitTime: 1
-  stateTime: 0.5
+  stateTime: 0
   dashTime: 2
-  dashSpeed: 2
+  dashSpeed: 1.4
   isFacingDirection: 1
 --- !u!1 &1157609784
 GameObject:

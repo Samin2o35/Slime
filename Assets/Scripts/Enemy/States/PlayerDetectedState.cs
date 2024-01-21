@@ -33,7 +33,7 @@ public class PlayerDetectedState : EnemyBaseState
         }
         else
         {
-            if(Time.deltaTime >= enemy.stateTime + enemy.playerDetectedWaitTime)
+            if(Time.time >= enemy.stateTime + enemy.playerDetectedWaitTime)
             {
                 enemy.SwitchState(enemy.attackState);
             }

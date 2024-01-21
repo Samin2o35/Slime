@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour, IDamageable
         currentState.Exit();
         currentState = newState;
         currentState.Enter();
-        stateTime = Time.deltaTime;
+        stateTime = Time.time;
     }
 
     #region Damage region
