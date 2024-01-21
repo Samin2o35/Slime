@@ -155,7 +155,6 @@ public class Enemy : MonoBehaviour, IDamageable
             Die();
         }
     }
-    
 
     private void Die()
     {
@@ -185,6 +184,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(ledgeDetector.position, (isFacingDirection == 1 ? Vector2.right : Vector2.left) * stats.obstacleDistance);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(enemyPos.position, stats.meleeAttackDistance);
     }
 
     #endregion

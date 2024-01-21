@@ -44,7 +44,7 @@ public class AttackState : EnemyBaseState
         {
             if(enemy.CheckForMeleeTarget()) 
             {
-                //enemy.SwitchState(enemy.meleeState());
+                enemy.SwitchState(enemy.meleeState);
             }
             Dash();
         }

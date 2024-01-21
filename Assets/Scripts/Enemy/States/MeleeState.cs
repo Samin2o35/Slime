@@ -13,7 +13,7 @@ public class MeleeState : EnemyBaseState
     {
         base.Enter();
 
-        Collider2D[] targets = Physics2D.OverlapCircleAll(enemy.transform.position, enemy.stats.meleeAttackDistance, enemy.whatIsPlayer);
+        Collider2D[] targets = Physics2D.OverlapCircleAll(enemy.enemyPos.position, enemy.stats.meleeAttackDistance, enemy.whatIsPlayer);
         
         foreach(Collider2D target in targets) 
         {
@@ -23,6 +23,7 @@ public class MeleeState : EnemyBaseState
             {
                 eDamageable.EnemyDamage(enemy.stats.eDamageAmount);
             }
+            enemy.SwitchState(enemy.patrolState);
         }
     }
 
