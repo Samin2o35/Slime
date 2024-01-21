@@ -40,8 +40,12 @@ public class AttackState : EnemyBaseState
                 enemy.SwitchState(enemy.patrolState);
             }
         }
-        else 
+        else //attack player after charge if still in range and time remaining
         {
+            if(enemy.CheckForMeleeTarget()) 
+            {
+                //enemy.SwitchState(enemy.meleeState());
+            }
             Dash();
         }
     }

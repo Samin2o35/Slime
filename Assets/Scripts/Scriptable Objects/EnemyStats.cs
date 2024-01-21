@@ -16,4 +16,8 @@ public class EnemyStats : ScriptableObject
     public float groundDistance;
     public float obstacleDistance;
     public float playerDetectDistance;
+    public float meleeAttackDistance;
+
+    [Header("Damage Amount")]
+    public float eDamageAmount;
 }

@@ -20,3 +20,5 @@ MonoBehaviour:
   groundDistance: 0.3
   obstacleDistance: 0.5
   playerDetectDistance: 1
+  meleeAttackDistance: 0
+  eDamageAmount: 1

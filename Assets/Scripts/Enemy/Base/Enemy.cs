@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public PatrolState patrolState;
     public PlayerDetectedState playerDetectedState;
     public AttackState attackState;
+    public MeleeState meleeState;
 
     [Header("ScreenShake")]
     [SerializeField] private ScreenShakeProfile profile;
@@ -55,6 +56,7 @@ public class Enemy : MonoBehaviour, IDamageable
         patrolState = new PatrolState(this, "patrol");
         playerDetectedState = new PlayerDetectedState(this, "playerDetected");
         attackState = new AttackState(this, "aggro");
+        meleeState = new MeleeState(this, "melee");
 
         currentState = patrolState;
         currentState.Enter();
@@ -110,7 +112,22 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-#endregion
+    public bool CheckForMeleeTarget()
+    {
+        RaycastHit2D hitMeleeTargetLeft = Physics2D.Raycast(enemyPos.position, Vector2.left, stats.meleeAttackDistance, whatIsPlayer);
+        RaycastHit2D hitMeleeTargetRight = Physics2D.Raycast(enemyPos.position, Vector2.right, stats.meleeAttackDistance, whatIsPlayer);
+
+        if (hitMeleeTargetLeft.collider == true || hitMeleeTargetRight.collider == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    #endregion
 
     public void SwitchState(EnemyBaseState newState)
     {
