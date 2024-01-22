@@ -7,7 +7,7 @@ public class Health : MonoBehaviour, IEnemyDamageable
 {
     [Header("Health")]
     [SerializeField] private float maxHealth;
-    private HealthBar healthBar;
+    [SerializeField]private HealthBar healthBar;
     private float currentHealth;
     public bool HasTakenDamage { get; set; }
 
