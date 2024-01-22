@@ -18,6 +18,8 @@ public class EnemyStats : ScriptableObject
     public float playerDetectDistance;
     public float meleeAttackDistance;
 
-    [Header("Damage Amount")]
+    [Header("Damage")]
     public float eDamageAmount;
+    public Vector2 knockbackAngle;
+    public float knockbackForce;
 }

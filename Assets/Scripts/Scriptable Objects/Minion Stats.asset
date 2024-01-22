@@ -22,3 +22,5 @@ MonoBehaviour:
   playerDetectDistance: 1
   meleeAttackDistance: 0.25
   eDamageAmount: 1
+  knockbackAngle: {x: 2, y: 0.25}
+  knockbackForce: 5
