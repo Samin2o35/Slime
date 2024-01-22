@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        patrolState = new PatrolState(this, "patrol");
+        patrolState = new PatrolState(this, "isPatrolling");
         playerDetectedState = new PlayerDetectedState(this, "playerDetected");
         attackState = new AttackState(this, "aggro");
         meleeState = new MeleeState(this, "melee");

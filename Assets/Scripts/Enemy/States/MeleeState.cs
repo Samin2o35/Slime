@@ -21,9 +21,11 @@ public class MeleeState : EnemyBaseState
 
             if(eDamageable != null)
             {
+                // knockback
                 target.GetComponent<Rigidbody2D>().velocity = new Vector2(enemy.stats.knockbackAngle.x * enemy.isFacingDirection, 
                     enemy.stats.knockbackAngle.y) * enemy.stats.knockbackForce;
 
+                // damage
                 eDamageable.EnemyDamage(enemy.stats.eDamageAmount);
             }
             enemy.SwitchState(enemy.patrolState);
