@@ -160,6 +160,19 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         Destroy(this.gameObject);
     }
+
+    public void AnimationFinishedTrigger()
+    {
+        // tell current state to run finsh trigger
+        currentState.AnimationFinishedTrigger();
+    }
+
+    public void AnimationAttackTrigger()
+    {
+        // tell current state to run attack trigger
+        currentState.AnimationAttackTrigger();
+    }
+
     #endregion
 
     #region Particle Region

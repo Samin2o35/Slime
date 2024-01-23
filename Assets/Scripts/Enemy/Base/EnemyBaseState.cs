@@ -32,4 +32,14 @@ public class EnemyBaseState
     {
 
     }
+
+    public virtual void AnimationFinishedTrigger()
+    {
+        
+    }
+
+    public virtual void AnimationAttackTrigger()
+    {
+        
+    }
 }

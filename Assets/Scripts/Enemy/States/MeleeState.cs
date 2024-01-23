@@ -12,24 +12,6 @@ public class MeleeState : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
-
-        Collider2D[] targets = Physics2D.OverlapCircleAll(enemy.enemyPos.position, enemy.stats.meleeAttackDistance, enemy.whatIsPlayer);
-        
-        foreach(Collider2D target in targets) 
-        {
-            IEnemyDamageable eDamageable = target.GetComponent<IEnemyDamageable>();
-
-            if(eDamageable != null)
-            {
-                // knockback
-                target.GetComponent<Rigidbody2D>().velocity = new Vector2(enemy.stats.knockbackAngle.x * enemy.isFacingDirection, 
-                    enemy.stats.knockbackAngle.y) * enemy.stats.knockbackForce;
-
-                // damage
-                eDamageable.EnemyDamage(enemy.stats.eDamageAmount);
-            }
-            enemy.SwitchState(enemy.patrolState);
-        }
     }
 
     public override void Exit()
@@ -45,5 +27,35 @@ public class MeleeState : EnemyBaseState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    // Specific overrides for running attack anim
+    public override void AnimationAttackTrigger()
+    {
+        base.AnimationAttackTrigger();
+
+        Collider2D[] targets = Physics2D.OverlapCircleAll(enemy.enemyPos.position, enemy.stats.meleeAttackDistance, enemy.whatIsPlayer);
+
+        foreach (Collider2D target in targets)
+        {
+            IEnemyDamageable eDamageable = target.GetComponent<IEnemyDamageable>();
+
+            if (eDamageable != null)
+            {
+                // knockback
+                target.GetComponent<Rigidbody2D>().velocity = new Vector2(enemy.stats.knockbackAngle.x * enemy.isFacingDirection,
+                    enemy.stats.knockbackAngle.y) * enemy.stats.knockbackForce;
+
+                // damage
+                eDamageable.EnemyDamage(enemy.stats.eDamageAmount);
+            }
+        }
+    }
+
+    public override void AnimationFinishedTrigger()
+    {
+        base.AnimationFinishedTrigger();
+
+        enemy.SwitchState(enemy.patrolState);
     }
 }
