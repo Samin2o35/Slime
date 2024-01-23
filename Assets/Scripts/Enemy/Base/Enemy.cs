@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour, IDamageable
     #region Variable region
 
     public Rigidbody2D enemyRb;
-    private Animator enemyAnim;
+    public Animator enemyAnim;
 
     [Header("State Machines")]
     public EnemyBaseState currentState;
@@ -54,9 +54,9 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Awake()
     {
         patrolState = new PatrolState(this, "isPatrolling");
-        playerDetectedState = new PlayerDetectedState(this, "playerDetected");
-        attackState = new AttackState(this, "aggro");
-        meleeState = new MeleeState(this, "melee");
+        playerDetectedState = new PlayerDetectedState(this, "isPlayerDetected");
+        attackState = new AttackState(this, "isDashing");
+        meleeState = new MeleeState(this, "isAttacking");
 
         currentState = patrolState;
         currentState.Enter();

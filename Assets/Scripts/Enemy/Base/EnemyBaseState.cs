@@ -15,12 +15,12 @@ public class EnemyBaseState
 
     public virtual void Enter()
     {
-
+        enemy.enemyAnim.SetBool(animationName, true);
     }
 
     public virtual void Exit() 
     {
-
+        enemy.enemyAnim.SetBool(animationName, false);
     }
 
     public virtual void LogicUpdate() 
