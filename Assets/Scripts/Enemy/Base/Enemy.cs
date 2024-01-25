@@ -24,7 +24,6 @@ public class Enemy : MonoBehaviour, IDamageable
     private CinemachineImpulseSource impulseSource;
 
     [Header("Health")]
-    [SerializeField] private float maxHealth;
     private HealthBar healthBar;
     private float currentHealth;
     public bool HasTakenDamage { get; set; }
@@ -64,7 +63,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = stats.maxHealth;
         enemyAnim = GetComponent<Animator>();
         enemyRb = GetComponent<Rigidbody2D>();
         healthBar = GetComponentInChildren<HealthBar>();
@@ -148,7 +147,7 @@ public class Enemy : MonoBehaviour, IDamageable
         SpawnDamageParticles(attackDirection);
 
         //update health bar according to damage taken
-        healthBar.UpdateHealthBar(maxHealth, currentHealth);
+        healthBar.UpdateHealthBar(stats.maxHealth, currentHealth);
 
         if (currentHealth <= 0)
         {
