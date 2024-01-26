@@ -10,10 +10,11 @@ public class PlayerStats : ScriptableObject
     public float damageAmount;
     public float timeBetweenAttack;
 
-    //[Header("Check Distance")]
-    
+    [Header("Health")]
+    public float maxHealth;
 
-    //[Header("Damage")]
-    
+    [Header("Enemy Knockback")]
+    public float KBForce;
+    public Vector2 KBAngle;
     
 }

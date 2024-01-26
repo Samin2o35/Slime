@@ -6,14 +6,14 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [Header("Health")]
-    [SerializeField] private float maxHealth;
     [SerializeField]private HealthBar healthBar;
     private float currentHealth;
     public bool HasTakenDamage { get; set; }
+    public PlayerStats stats;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = stats.maxHealth;
     }
 
     // call when player is damaging the enemy
@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         currentHealth -= damageAmount;
 
         // update player health bar according to damage taken from enemy
-        healthBar.UpdateHealthBar(maxHealth, currentHealth);
+        healthBar.UpdatePlayerHealthBar(stats.maxHealth, currentHealth);
 
         if (currentHealth <= 0)
         {

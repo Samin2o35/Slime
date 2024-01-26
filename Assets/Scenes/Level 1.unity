@@ -465,6 +465,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+  eStats: {fileID: 0}
+  pStats: {fileID: 0}
 --- !u!114 &373203893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,11 +757,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52f5e5dd4f33d0145b3ee9ffa319b239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pStats: {fileID: 11400000, guid: d37d7ccd51a14bc408a90806cbce3abd, type: 2}
   AttackTransform: {fileID: 1902134662}
   attackableLayer:
     serializedVersion: 2
     m_Bits: 128
-  pStats: {fileID: 11400000, guid: d37d7ccd51a14bc408a90806cbce3abd, type: 2}
 --- !u!114 &500861511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,8 +774,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82479e0df9d692e4a8989bd5a8fd37cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
   healthBar: {fileID: 1529177498}
+  stats: {fileID: 11400000, guid: d37d7ccd51a14bc408a90806cbce3abd, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1824,6 +1826,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+  eStats: {fileID: 0}
+  pStats: {fileID: 0}
 --- !u!1 &1902134661
 GameObject:
   m_ObjectHideFlags: 0

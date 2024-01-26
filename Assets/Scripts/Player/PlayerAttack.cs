@@ -7,16 +7,18 @@ public class PlayerAttack : MonoBehaviour
 {
     #region Variable Region
 
+    private Animator anim;
+    public PlayerStats pStats;
+
+    [Header("Check Layers")]
     [SerializeField] private Transform AttackTransform;
     [SerializeField] private LayerMask attackableLayer;
 
-    private RaycastHit2D[] hits;
-    private Animator anim;
+    [Header("Attack Enemies")]
     private List<IDamageable> targets = new List<IDamageable>();
-    private float attackTimeCounter;
+    private RaycastHit2D[] hits;
     public bool ShouldBeDamaging { get; private set; } = false;
-
-    public PlayerStats pStats;
+    private float attackTimeCounter;
 
     #endregion
 
@@ -55,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
                 if (iDamageable != null && iDamageable.HasTakenDamage == false)
                 {
                     //apply damage to hit targets
-                    iDamageable.PDamage(pStats.damageAmount, transform.right, 5, new Vector2(1, 1));
+                    iDamageable.PDamage(pStats.damageAmount, transform.right, pStats.KBForce, pStats.KBAngle);
                     targets.Add(iDamageable);
                 }
             }
@@ -98,4 +100,15 @@ public class PlayerAttack : MonoBehaviour
     }
 
     #endregion
+
+    /*private void OnTriggerEnter2D(Collider2D collision)
+    {
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+
+        if(damageable != null)
+        {
+            
+            damageable.PDamage(pStats.damageAmount, transform.right, pStats.KBForce, pStats.KBAngle);
+        }
+    }*/
 }

@@ -152,7 +152,7 @@ public class Enemy : MonoBehaviour, IDamageable
         damageState.KBForce = KBForce;
         damageState.KBAngle = KBAngle;
 
-        SwitchState(damageState);
+        //SwitchState(damageState);
         CameraShakeManager.instance.ScreenShakeFromProfile(profile, impulseSource);
         HasTakenDamage = true;
         currentHealth -= damageAmount;
@@ -160,8 +160,8 @@ public class Enemy : MonoBehaviour, IDamageable
         //spawn particles
         SpawnDamageParticles(attackDirection);
 
-        //update health bar according to damage taken
-        healthBar.UpdateHealthBar(stats.maxHealth, currentHealth);
+        //update health bar according to damage taken from player
+        healthBar.UpdateEnemyHealthBar(stats.maxHealth, currentHealth);
 
         if (currentHealth <= 0)
         {

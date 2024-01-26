@@ -15,3 +15,6 @@ MonoBehaviour:
   attackRange: 0.15
   damageAmount: 2
   timeBetweenAttack: 1
+  maxHealth: 5
+  KBForce: 2
+  KBAngle: {x: 1, y: 1}

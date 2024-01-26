@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0c4c8c91d3d8340ac6d9d8f6779675, type: 3}
   m_Name: Minion Stats
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 3
   enemySpeed: 0.75
   playerDetectPauseTime: 1
   playerDetectedWaitTime: 1
