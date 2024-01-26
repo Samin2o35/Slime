@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
 
     // call when player is damaging the enemy
-    public void PDamage(float damageAmount, Vector2 attackDirection)
+    public void PDamage(float damageAmount, Vector2 attackDirection, float KBForce, Vector2 KBAngle)
     {
 
     }

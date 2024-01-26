@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public PlayerDetectedState playerDetectedState;
     public AttackState attackState;
     public MeleeState meleeState;
+    public DamagedState damageState;
 
     [Header("ScreenShake")]
     [SerializeField] private ScreenShakeProfile profile;
@@ -56,6 +57,7 @@ public class Enemy : MonoBehaviour, IDamageable
         playerDetectedState = new PlayerDetectedState(this, "isPlayerDetected");
         attackState = new AttackState(this, "isDashing");
         meleeState = new MeleeState(this, "isAttacking");
+        damageState = new DamagedState(this, "isDamaged");
 
         currentState = patrolState;
         currentState.Enter();
@@ -145,8 +147,12 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
     // call when player is damaging the enemy
-    public void PDamage(float damageAmount, Vector2 attackDirection)
+    public void PDamage(float damageAmount, Vector2 attackDirection, float KBForce, Vector2 KBAngle)
     {
+        damageState.KBForce = KBForce;
+        damageState.KBAngle = KBAngle;
+
+        SwitchState(damageState);
         CameraShakeManager.instance.ScreenShakeFromProfile(profile, impulseSource);
         HasTakenDamage = true;
         currentHealth -= damageAmount;
