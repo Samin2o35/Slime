@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour, IEnemyDamageable
+public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [Header("Health")]
     [SerializeField] private float maxHealth;
@@ -16,13 +16,20 @@ public class Health : MonoBehaviour, IEnemyDamageable
         currentHealth = maxHealth;
     }
 
-    public void EnemyDamage(float eDamageAmount)
+    // call when player is damaging the enemy
+    public void PDamage(float damageAmount, Vector2 attackDirection)
+    {
+
+    }
+
+    // call when enemy is damaging the player
+    public void EDamage(float damageAmount)
     {
         //CameraShakeManager.instance.ScreenShakeFromProfile(profile, impulseSource);
         HasTakenDamage = true;
-        currentHealth -= eDamageAmount;
+        currentHealth -= damageAmount;
 
-        //update health bar according to damage taken
+        // update player health bar according to damage taken from enemy
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
 
         if (currentHealth <= 0)

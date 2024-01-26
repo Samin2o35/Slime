@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Melee : MonoBehaviour
 {
+    #region Variable Region
+
     [SerializeField] private Transform AttackTransform;
     [SerializeField] private LayerMask attackableLayer;
     [SerializeField] private float attackRange;
@@ -15,6 +17,8 @@ public class Melee : MonoBehaviour
     private List<IDamageable> targets = new List<IDamageable>();
     private float attackTimeCounter;
     public bool ShouldBeDamaging { get; private set; } = false;
+
+    #endregion
 
     private void Start()
     {
@@ -37,7 +41,8 @@ public class Melee : MonoBehaviour
 
         attackTimeCounter += Time.deltaTime;
     }
-    
+
+    #region Damage Enemy
     public IEnumerator DamageWhileAttackActive()
     {
         ShouldBeDamaging = true;
@@ -50,7 +55,7 @@ public class Melee : MonoBehaviour
                 if (iDamageable != null && iDamageable.HasTakenDamage == false)
                 {
                     //apply damage to hit targets
-                    iDamageable.Damage(damageAmount, transform.right);
+                    iDamageable.PDamage(damageAmount, transform.right);
                     targets.Add(iDamageable);
                 }
             }
@@ -69,10 +74,7 @@ public class Melee : MonoBehaviour
         targets.Clear();
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(AttackTransform.position, attackRange);
-    }
+    #endregion
 
     #region AnimationTriggers
 
@@ -84,6 +86,15 @@ public class Melee : MonoBehaviour
     public void ShouldBeDamagingToFalse()
     {
         ShouldBeDamaging= false;
+    }
+
+    #endregion
+
+    #region Debug
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(AttackTransform.position, attackRange);
     }
 
     #endregion

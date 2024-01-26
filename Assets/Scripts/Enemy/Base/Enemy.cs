@@ -137,7 +137,15 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
     #region Damage region
-    public void Damage(float damageAmount, Vector2 attackDirection)
+    
+    // call when enemy is damaging the player
+    public void EDamage(float damageAmount)
+    {
+        
+    }
+
+    // call when player is damaging the enemy
+    public void PDamage(float damageAmount, Vector2 attackDirection)
     {
         CameraShakeManager.instance.ScreenShakeFromProfile(profile, impulseSource);
         HasTakenDamage = true;

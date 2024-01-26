@@ -38,16 +38,16 @@ public class MeleeState : EnemyBaseState
 
         foreach (Collider2D target in targets)
         {
-            IEnemyDamageable eDamageable = target.GetComponent<IEnemyDamageable>();
+            IDamageable damageable = target.GetComponent<IDamageable>();
 
-            if (eDamageable != null)
+            if (damageable != null)
             {
                 // knockback
                 target.GetComponent<Rigidbody2D>().velocity = new Vector2(enemy.stats.knockbackAngle.x * enemy.isFacingDirection,
                     enemy.stats.knockbackAngle.y) * enemy.stats.knockbackForce;
 
                 // damage
-                eDamageable.EnemyDamage(enemy.stats.eDamageAmount);
+                damageable.EDamage(enemy.stats.eDamageAmount);
             }
         }
     }

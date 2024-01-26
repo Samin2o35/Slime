@@ -4,14 +4,11 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void Damage(float damageAmount, Vector2 attackDirection);
+    // For player
+    public void PDamage(float damageAmount, Vector2 attackDirection);
+    
+    //For enemy
+    public void EDamage(float eDamageAmount);
 
-    public bool HasTakenDamage { get; set; }
-
-    // take from IEnemyDamageable
-
-    public void EnemyDamage(float eDamageAmount);
-
-    public bool HasTakenDamage { get; set; }
     public bool HasTakenDamage { get; set; }
 }
