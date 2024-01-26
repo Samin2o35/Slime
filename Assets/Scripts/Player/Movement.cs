@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    #region Variable region
+
     private Rigidbody2D rb;
     private Animator anim;
     private Collider2D col;
@@ -30,6 +32,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
 
     [HideInInspector] public bool isFacingRight;
+
+    #endregion
 
     private void Start()
     {
