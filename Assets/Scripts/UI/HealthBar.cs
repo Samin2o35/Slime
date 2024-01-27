@@ -11,8 +11,6 @@ public class HealthBar : MonoBehaviour
     private Image image;
     private Color newHealthBarColor;
     private Coroutine drainHealthBarCoroutine;
-    public EnemyStats eStats;
-    public PlayerStats pStats;
     
     private void Start()
     {
@@ -23,13 +21,13 @@ public class HealthBar : MonoBehaviour
 
     public void UpdatePlayerHealthBar(float maxHealth, float currentHealth)
     {
-        target = currentHealth / pStats.maxHealth;
+        target = currentHealth / maxHealth;
         drainHealthBarCoroutine = StartCoroutine(DrainHealthBar());
         CheckHealthBarGradient();
     }
     public void UpdateEnemyHealthBar(float maxHealth, float currentHealth)
     {
-        target = currentHealth / eStats.maxHealth;
+        target = currentHealth / maxHealth;
         drainHealthBarCoroutine = StartCoroutine(DrainHealthBar());
         CheckHealthBarGradient();
     }

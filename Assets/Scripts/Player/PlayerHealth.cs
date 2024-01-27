@@ -8,12 +8,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [Header("Health")]
     [SerializeField]private HealthBar healthBar;
     private float currentHealth;
+    public float maxHealth;
     public bool HasTakenDamage { get; set; }
     public PlayerStats stats;
 
     private void Start()
     {
-        currentHealth = stats.maxHealth;
+        currentHealth = maxHealth;
     }
 
     // call when player is damaging the enemy
@@ -30,7 +31,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         currentHealth -= damageAmount;
 
         // update player health bar according to damage taken from enemy
-        healthBar.UpdatePlayerHealthBar(stats.maxHealth, currentHealth);
+        healthBar.UpdatePlayerHealthBar(maxHealth, currentHealth);
 
         if (currentHealth <= 0)
         {

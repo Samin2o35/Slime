@@ -6,7 +6,6 @@ using UnityEngine;
 public class EnemyStats : ScriptableObject
 {
     [Header("Enemy Variables")]
-    public float maxHealth;
     public float enemySpeed;
     public float playerDetectPauseTime;
     public float playerDetectedWaitTime;
