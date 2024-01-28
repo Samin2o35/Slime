@@ -1278,7 +1278,7 @@ MonoBehaviour:
   enemyRb: {fileID: 1108537550}
   enemyAnim: {fileID: 1108537551}
   profile: {fileID: 11400000, guid: 18b40127adf09f14a9ee09b9b5bd4bf7, type: 2}
-  maxHealth: 2
+  maxHealth: 3
   damageParticles: {fileID: 6597422311147691902, guid: 15ea3c8a0b529d741af36337beb1290d, type: 3}
   whatIsGround:
     serializedVersion: 2
