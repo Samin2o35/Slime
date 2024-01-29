@@ -774,7 +774,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1529177498}
   maxHealth: 5
-  stats: {fileID: 11400000, guid: d37d7ccd51a14bc408a90806cbce3abd, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1290,6 @@ MonoBehaviour:
     m_Bits: 8
   ledgeDetector: {fileID: 1956663127}
   enemyPos: {fileID: 456185167}
-  alert: {fileID: 1157609784}
   isFacingDirection: 1
   stateTime: 0
   stats: {fileID: 11400000, guid: f5e307255c2a02948bc5be6a50acabf5, type: 2}
@@ -1313,7 +1311,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1157609785
 RectTransform:
   m_ObjectHideFlags: 0

@@ -10,7 +10,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private float currentHealth;
     public float maxHealth;
     public bool HasTakenDamage { get; set; }
-    public PlayerStats stats;
 
     private void Start()
     {

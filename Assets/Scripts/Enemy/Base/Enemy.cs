@@ -42,7 +42,6 @@ public class Enemy : MonoBehaviour, IDamageable
     [Header("Checkers")]
     public Transform ledgeDetector;
     public Transform enemyPos;
-    public GameObject alert;
 
     [Header("Booleans")]
     public int isFacingDirection = 1; //prevents writing multiple if statements
