@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0c4c8c91d3d8340ac6d9d8f6779675, type: 3}
   m_Name: Minion Stats
   m_EditorClassIdentifier: 
-  maxHealth: 3
   enemySpeed: 0.75
   playerDetectPauseTime: 1
   playerDetectedWaitTime: 1
@@ -22,6 +21,6 @@ MonoBehaviour:
   obstacleDistance: 0.5
   playerDetectDistance: 1
   meleeAttackDistance: 0.25
-  eDamageAmount: 1
-  knockbackAngle: {x: 2, y: 0.25}
+  eDamageAmount: 2
+  knockbackAngle: {x: 2, y: 1}
   knockbackForce: 5

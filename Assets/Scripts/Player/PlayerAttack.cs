@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
 
     private Animator anim;
     public PlayerStats pStats;
+    private Movement playerMovement;
 
     [Header("Check Layers")]
     [SerializeField] private Transform AttackTransform;
@@ -50,14 +51,20 @@ public class PlayerAttack : MonoBehaviour
         ShouldBeDamaging = true;
         while(ShouldBeDamaging)
         {
-            hits = Physics2D.CircleCastAll(AttackTransform.position, pStats.attackRange, transform.right, 0f, attackableLayer);
+            hits = Physics2D.CircleCastAll(AttackTransform.position, pStats.attackRange, 
+                transform.right, 0f, attackableLayer);
+
             for (int i = 0; i < hits.Length; i++)
             {
                 IDamageable iDamageable = hits[i].collider.gameObject.GetComponent<IDamageable>();
                 if (iDamageable != null && iDamageable.HasTakenDamage == false)
                 {
+                    //determine knockback direction
+                    
                     //apply damage to hit targets
-                    iDamageable.PDamage(pStats.damageAmount, transform.right, pStats.KBForce, pStats.KBAngle);
+                    iDamageable.PDamage(pStats.damageAmount, transform.right, pStats.KBForce,
+                        pStats.KBAngle);
+
                     targets.Add(iDamageable);
                 }
             }
