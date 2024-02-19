@@ -39,14 +39,14 @@ public class Enemy : MonoBehaviour
         currentState.Enter();
     }
 
-    private void FixedUpdate()
-    {
-        currentState.PhysicsUpdate();
-    }
-
     private void Update()
     {
         currentState.LogicUpdate();
+    }
+
+    private void FixedUpdate()
+    {
+        currentState.PhysicsUpdate();
     }
     #endregion
 
@@ -90,7 +90,7 @@ public class Enemy : MonoBehaviour
         currentState.Exit();
         currentState = newState;
         currentState.Enter();
-        stateTime = Time.deltaTime;
+        stateTime = Time.time;
     }
 
     #region Debugging Region
