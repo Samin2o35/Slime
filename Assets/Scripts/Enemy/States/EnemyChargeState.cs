@@ -29,7 +29,7 @@ public class EnemyChargeState : EnemyBaseState
     {
         base.PhysicsUpdate();
 
-        if(Time.time >= enemy.stateTime + enemy.chargeTime)
+        if(Time.time >= enemy.stateTime + enemy.enemyStats.chargeTime)
         {
             if(enemy.CheckForPlayer())
             {
@@ -48,7 +48,7 @@ public class EnemyChargeState : EnemyBaseState
 
     private void Charge() 
     {
-        enemy.enemyRb.velocity = new Vector2(enemy.chargeSpeed * enemy.facingDirection,
+        enemy.enemyRb.velocity = new Vector2(enemy.enemyStats.chargeSpeed * enemy.facingDirection,
             enemy.enemyRb.velocity.y);
     }
 }

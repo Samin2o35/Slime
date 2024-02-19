@@ -36,11 +36,11 @@ public class EnemyPatrolState : EnemyBaseState
 
         if (enemy.facingDirection == 1)
         {
-            enemy.enemyRb.velocity = new Vector2(enemy.enemyMoveSpeed, enemy.enemyRb.velocity.y);
+            enemy.enemyRb.velocity = new Vector2(enemy.enemyStats.enemyMoveSpeed, enemy.enemyRb.velocity.y);
         }
         else
         {
-            enemy.enemyRb.velocity = new Vector2(-enemy.enemyMoveSpeed, enemy.enemyRb.velocity.y);
+            enemy.enemyRb.velocity = new Vector2(-enemy.enemyStats.enemyMoveSpeed, enemy.enemyRb.velocity.y);
         }
     }
 

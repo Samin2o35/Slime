@@ -35,7 +35,7 @@ public class EnemyDetectedPlayerState : EnemyBaseState
         }
         else
         {
-            if(Time.time >= enemy.stateTime + enemy.playerDetectedWaitTime)
+            if(Time.time >= enemy.stateTime + enemy.enemyStats.playerDetectedWaitTime)
             {
                 enemy.SwitchState(enemy.chargeState);
             }

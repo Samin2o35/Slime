@@ -299,6 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyRb: {fileID: 174465969}
   ledgeDetector: {fileID: 708047702}
+  alert: {fileID: 1566258719}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -308,17 +309,9 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  enemyStats: {fileID: 11400000, guid: 7719049ce2f62214fb6f4b5a3d535dcd, type: 2}
   facingDirection: 1
-  groundDistance: 0.3
-  obstacleDistance: 0.2
-  playerDetectDistance: 0.5
-  enemyMoveSpeed: 1
-  detectionPauseTime: 1
-  alert: {fileID: 1566258719}
   stateTime: 0
-  playerDetectedWaitTime: 1
-  chargeTime: 2
-  chargeSpeed: 2
 --- !u!95 &174465971
 Animator:
   serializedVersion: 5
@@ -358,7 +351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &500861503
 SpriteRenderer:
   m_ObjectHideFlags: 0

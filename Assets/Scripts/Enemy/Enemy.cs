@@ -5,27 +5,24 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     #region Variables
-    public EnemyBaseState currentState; 
+    
+    [Header("Enemy States")]
+    public EnemyBaseState currentState;
 
     public EnemyPatrolState patrolState;
     public EnemyDetectedPlayerState playerDetectedState;
     public EnemyChargeState chargeState;
 
+    [Header("Enemy Essentials")]
     public Rigidbody2D enemyRb;
     public Transform ledgeDetector;
-    public LayerMask groundLayer, obstacleLayer, playerLayer;
-
-    public int facingDirection = 1;
-
-    public float groundDistance, obstacleDistance, playerDetectDistance;
-    public float enemyMoveSpeed;
-    public float detectionPauseTime;
     public GameObject alert;
+    public LayerMask groundLayer, obstacleLayer, playerLayer;
+    public EnemyStats enemyStats;
 
+    [Header("Enemy Variables")]
+    public int facingDirection = 1;
     public float stateTime;
-    public float playerDetectedWaitTime = 1;
-    public float chargeTime;
-    public float chargeSpeed;
     #endregion
 
     #region Unity Callbacks
@@ -53,13 +50,13 @@ public class Enemy : MonoBehaviour
     #region Enemy Checks
     public bool CheckForTerrain()
     {
-        RaycastHit2D hit = Physics2D.Raycast(ledgeDetector.position, Vector2.down, 
-            groundDistance, groundLayer);
+        RaycastHit2D hitGround = Physics2D.Raycast(ledgeDetector.position, Vector2.down, 
+            enemyStats.groundDistance, groundLayer);
 
         RaycastHit2D hitObstacle = Physics2D.Raycast(ledgeDetector.position, facingDirection == 1?
-            Vector2.right : Vector2.left, obstacleDistance, obstacleLayer);
+            Vector2.right : Vector2.left, enemyStats.obstacleDistance, obstacleLayer);
 
-        if (hit.collider == null || hitObstacle.collider == true)
+        if (hitGround.collider == null || hitObstacle.collider == true)
         {
             return true;
         }
@@ -72,7 +69,7 @@ public class Enemy : MonoBehaviour
     public bool CheckForPlayer()
     {
         RaycastHit2D hitPlayer = Physics2D.Raycast(ledgeDetector.position, facingDirection == 1? 
-            Vector2.right : Vector2.left ,playerDetectDistance, playerLayer);
+            Vector2.right : Vector2.left ,enemyStats.playerDetectDistance, playerLayer);
 
         if (hitPlayer.collider == true)
         {
@@ -98,17 +95,17 @@ public class Enemy : MonoBehaviour
     {
         // ground check
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(ledgeDetector.position, Vector2.down * groundDistance);
+        Gizmos.DrawRay(ledgeDetector.position, Vector2.down * enemyStats.groundDistance);
 
         // player check
         Gizmos.color = Color.green;
         Gizmos.DrawRay(ledgeDetector.position, (facingDirection == 1? Vector2.right : Vector2.left) 
-            * playerDetectDistance);
+            * enemyStats.playerDetectDistance);
 
         // obstacle check
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(ledgeDetector.position, (facingDirection == 1? Vector2.right : Vector2.left)
-            * obstacleDistance);
+            * enemyStats.obstacleDistance);
     }
     #endregion
 }
