@@ -2,46 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPatrolState : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
+    #region Variables
+    public EnemyBaseState currentState; 
+
+    public EnemyPatrolState patrolState;
+    public EnemyDetectedPlayerState playerDetectedState;
+
     public Rigidbody2D enemyRb;
     public Transform ledgeDetector;
     public LayerMask groundLayer, obstacleLayer, playerLayer;
 
-    private bool facingRight = true;
-    public bool playerDetected;
+    public bool facingRight = true;
 
     public float groundDistance, obstacleDistance, playerDetectDistance;
     public float enemyMoveSpeed;
     public float detectionPauseTime;
     public GameObject alert;
+    #endregion
 
-    private void Start()
+    #region Unity Callbacks
+    private void Awake()
     {
-        
+        patrolState = new EnemyPatrolState(this, "patrol");
+        playerDetectedState = new EnemyDetectedPlayerState(this, "playerDetected");
+
+        currentState = patrolState;
+        currentState.Enter();
     }
+
     private void FixedUpdate()
     {
-        if(!playerDetected)
-        {
-            if (facingRight)
-            {
-                enemyRb.velocity = new Vector2(enemyMoveSpeed, enemyRb.velocity.y);
-            }
-            else
-            {
-                enemyRb.velocity = new Vector2(-enemyMoveSpeed, enemyRb.velocity.y);
-            }
-        }
+        currentState.PhysicsUpdate();
     }
 
     private void Update()
     {
-        CheckForTerrain();
-        CheckForPlayer();
+        currentState.LogicUpdate();
     }
+    #endregion
 
-    private void CheckForTerrain()
+    #region Enemy Checks
+    public bool CheckForTerrain()
     {
         RaycastHit2D hit = Physics2D.Raycast(ledgeDetector.position, Vector2.down, 
             groundDistance, groundLayer);
@@ -51,44 +54,35 @@ public class EnemyPatrolState : MonoBehaviour
 
         if (hit.collider == null || hitObstacle.collider == true)
         {
-            Rotate();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-    private void CheckForPlayer()
+    public bool CheckForPlayer()
     {
         RaycastHit2D hitPlayer = Physics2D.Raycast(ledgeDetector.position, facingRight? 
             Vector2.right : Vector2.left ,playerDetectDistance, playerLayer);
 
         if (hitPlayer.collider == true)
         {
-            StartCoroutine(PlayerDetected());
+            return true;
         }
-        else if(playerDetected)
+        else
         {
-            StartCoroutine(PlayerNotDetected());
+            return false;
         }
     }
+    #endregion
 
-    IEnumerator PlayerDetected()
+    public void SwitchState(EnemyBaseState newState)
     {
-        playerDetected = true;
-        enemyRb.velocity = Vector2.zero;
-        alert.SetActive(true);
-        yield return new WaitForSeconds(detectionPauseTime);
-    }
-
-    IEnumerator PlayerNotDetected()
-    {
-        yield return new WaitForSeconds(detectionPauseTime);
-        playerDetected = false;
-        alert.SetActive(false);
-    }
-
-    private void Rotate()
-    {
-        transform.Rotate(0, 180, 0);
-        facingRight = !facingRight;
+        currentState.Exit();
+        currentState = newState;
+        currentState.Enter();
     }
 
     #region Debugging Region
