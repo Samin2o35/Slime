@@ -9,17 +9,23 @@ public class Enemy : MonoBehaviour
 
     public EnemyPatrolState patrolState;
     public EnemyDetectedPlayerState playerDetectedState;
+    public EnemyChargeState chargeState;
 
     public Rigidbody2D enemyRb;
     public Transform ledgeDetector;
     public LayerMask groundLayer, obstacleLayer, playerLayer;
 
-    public bool facingRight = true;
+    public int facingDirection = 1;
 
     public float groundDistance, obstacleDistance, playerDetectDistance;
     public float enemyMoveSpeed;
     public float detectionPauseTime;
     public GameObject alert;
+
+    public float stateTime;
+    public float playerDetectedWaitTime = 1;
+    public float chargeTime;
+    public float chargeSpeed;
     #endregion
 
     #region Unity Callbacks
@@ -27,6 +33,7 @@ public class Enemy : MonoBehaviour
     {
         patrolState = new EnemyPatrolState(this, "patrol");
         playerDetectedState = new EnemyDetectedPlayerState(this, "playerDetected");
+        chargeState = new EnemyChargeState(this, "charge");
 
         currentState = patrolState;
         currentState.Enter();
@@ -49,7 +56,7 @@ public class Enemy : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(ledgeDetector.position, Vector2.down, 
             groundDistance, groundLayer);
 
-        RaycastHit2D hitObstacle = Physics2D.Raycast(ledgeDetector.position, facingRight?
+        RaycastHit2D hitObstacle = Physics2D.Raycast(ledgeDetector.position, facingDirection == 1?
             Vector2.right : Vector2.left, obstacleDistance, obstacleLayer);
 
         if (hit.collider == null || hitObstacle.collider == true)
@@ -64,7 +71,7 @@ public class Enemy : MonoBehaviour
 
     public bool CheckForPlayer()
     {
-        RaycastHit2D hitPlayer = Physics2D.Raycast(ledgeDetector.position, facingRight? 
+        RaycastHit2D hitPlayer = Physics2D.Raycast(ledgeDetector.position, facingDirection == 1? 
             Vector2.right : Vector2.left ,playerDetectDistance, playerLayer);
 
         if (hitPlayer.collider == true)
@@ -83,6 +90,7 @@ public class Enemy : MonoBehaviour
         currentState.Exit();
         currentState = newState;
         currentState.Enter();
+        stateTime = Time.deltaTime;
     }
 
     #region Debugging Region
@@ -94,12 +102,12 @@ public class Enemy : MonoBehaviour
 
         // player check
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(ledgeDetector.position, (facingRight ? Vector2.right : Vector2.left) 
+        Gizmos.DrawRay(ledgeDetector.position, (facingDirection == 1? Vector2.right : Vector2.left) 
             * playerDetectDistance);
 
         // obstacle check
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(ledgeDetector.position, (facingRight ? Vector2.right : Vector2.left)
+        Gizmos.DrawRay(ledgeDetector.position, (facingDirection == 1? Vector2.right : Vector2.left)
             * obstacleDistance);
     }
     #endregion

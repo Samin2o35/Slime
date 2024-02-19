@@ -17,11 +17,6 @@ public class EnemyPatrolState : EnemyBaseState
         base.Enter();
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
     public override void LogicUpdate()
     {
         base.LogicUpdate();
@@ -41,7 +36,7 @@ public class EnemyPatrolState : EnemyBaseState
     {
         base.PhysicsUpdate();
 
-        if (enemy.facingRight)
+        if (enemy.facingDirection == 1)
         {
             enemy.enemyRb.velocity = new Vector2(enemy.enemyMoveSpeed, enemy.enemyRb.velocity.y);
         }
@@ -54,6 +49,6 @@ public class EnemyPatrolState : EnemyBaseState
     private void Rotate()
     {
         enemy.transform.Rotate(0, 180, 0);
-        enemy.facingRight = !enemy.facingRight;
+        enemy.facingDirection = -enemy.facingDirection;
     }
 }

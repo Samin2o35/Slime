@@ -308,13 +308,17 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  playerDetected: 0
+  facingDirection: 1
   groundDistance: 0.3
   obstacleDistance: 0.2
   playerDetectDistance: 0.5
   enemyMoveSpeed: 1
   detectionPauseTime: 1
   alert: {fileID: 1566258719}
+  stateTime: 0
+  playerDetectedWaitTime: 1
+  chargeTime: 2
+  chargeSpeed: 2
 --- !u!95 &174465971
 Animator:
   serializedVersion: 5
@@ -354,7 +358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &500861503
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -33,6 +33,13 @@ public class EnemyDetectedPlayerState : EnemyBaseState
         {
             enemy.SwitchState(enemy.patrolState);
         }
+        else
+        {
+            if(Time.time >= enemy.stateTime + enemy.playerDetectedWaitTime)
+            {
+                enemy.SwitchState(enemy.chargeState);
+            }
+        }
     }
 
     public override void PhysicsUpdate()
