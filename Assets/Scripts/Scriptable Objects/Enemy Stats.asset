@@ -22,3 +22,5 @@ MonoBehaviour:
   chargeSpeed: 1.5
   attackDetectDistance: 0.2
   damageAmount: 5
+  knockbackAngle: {x: 2, y: 2}
+  knockbackForce: 0.5

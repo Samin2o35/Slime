@@ -22,5 +22,7 @@ public class EnemyStats : ScriptableObject
     [Header("Attack State")]
     public float attackDetectDistance;
     public float damageAmount;
+    public Vector2 knockbackAngle;
+    public float knockbackForce;
 
 }

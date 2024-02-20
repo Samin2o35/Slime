@@ -5,12 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     public float health;
-
-    public void Damage(float damageAmount)
-    {
-        Debug.Log("hit");
-        health -= damageAmount;
-    }
+    public Animator hitPraticleAnim;
 
     private void Update()
     {
@@ -18,5 +13,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             Destroy(gameObject);
         }
+    }
+
+    public void Damage(float damageAmount)
+    {
+        hitPraticleAnim.Play("Enemy - HitParticle");
+        Debug.Log("hit");
+        health -= damageAmount;
     }
 }

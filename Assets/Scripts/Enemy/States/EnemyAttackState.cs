@@ -24,6 +24,10 @@ public class EnemyAttackState : EnemyBaseState
 
             if (damageable != null) 
             {
+                hitCollider.GetComponent<Rigidbody2D>().velocity = new Vector2
+                    (enemy.enemyStats.knockbackAngle.x * enemy.facingDirection,
+                    enemy.enemyStats.knockbackAngle.y) * enemy.enemyStats.knockbackForce;
+
                 damageable.Damage(enemy.enemyStats.damageAmount);
             }
         }
