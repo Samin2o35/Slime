@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "EnemyStatsSO")]
 public class EnemyStats : ScriptableObject
 {
+    [Header("General Stats")]
+    public float maxHealth = 20;
+    
     [Header("Patrol State")]
     public float groundDistance;
     public float obstacleDistance;

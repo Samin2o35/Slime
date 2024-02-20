@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
     #region Variables
     
@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public EnemyDetectedPlayerState playerDetectedState;
     public EnemyChargeState chargeState;
     public EnemyAttackState attackState;
+    public EnemyDamagedState damagedState;
 
     [Header("Enemy Essentials")]
     public Rigidbody2D enemyRb;
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour
     public GameObject alert;
     public LayerMask groundLayer, obstacleLayer, playerLayer, damageableLayer;
     public EnemyStats enemyStats;
+    public float currentHealth;
 
     [Header("Enemy Variables")]
     public int facingDirection = 1;
@@ -28,12 +30,18 @@ public class Enemy : MonoBehaviour
     #endregion
 
     #region Unity Callbacks
+    private void Start()
+    {
+        currentHealth = enemyStats.maxHealth;
+    }
+
     private void Awake()
     {
         patrolState = new EnemyPatrolState(this, "patrol");
         playerDetectedState = new EnemyDetectedPlayerState(this, "playerDetected");
         chargeState = new EnemyChargeState(this, "charge");
         attackState = new EnemyAttackState(this, "attack");
+        damagedState = new EnemyDamagedState(this, "damaged");
 
         currentState = patrolState;
         currentState.Enter();
@@ -116,6 +124,20 @@ public class Enemy : MonoBehaviour
     public void AnimationAttackTrigger()
     {
         currentState.AnimationAttackTrigger();
+    }
+
+    public void Damage(float damageAmount)
+    {
+        
+    }
+
+    // enemy takes damage
+    public void Damage(float damageAmount, float kBForce, Vector2 kBAngle)
+    {
+        damagedState.kBForce = kBForce;
+        damagedState.kBAngle = kBAngle;
+        SwitchState(damagedState);
+        currentHealth -= damageAmount;
     }
 
     #region Debugging Region

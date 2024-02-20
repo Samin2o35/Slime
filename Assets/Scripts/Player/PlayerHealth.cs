@@ -15,10 +15,16 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         }
     }
 
+    // player takes damage
     public void Damage(float damageAmount)
     {
         hitPraticleAnim.Play("Enemy - HitParticle");
         Debug.Log("hit");
         health -= damageAmount;
+    }
+
+    public void Damage(float damageAmount, float kBForce, Vector2 kBAngle)
+    {
+        
     }
 }
