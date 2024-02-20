@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Enemy Stats
   m_EditorClassIdentifier: 
   groundDistance: 0.3
-  obstacleDistance: 0.2
+  obstacleDistance: 0.25
   enemyMoveSpeed: 1
   playerDetectDistance: 0.5
   detectionPauseTime: 1
   playerDetectedWaitTime: 2
-  chargeTime: 1.5
-  chargeSpeed: 2
+  chargeTime: 0.5
+  chargeSpeed: 1.5
+  attackDetectDistance: 0.2
+  damageAmount: 5

@@ -18,4 +18,9 @@ public class EnemyStats : ScriptableObject
     [Header("Charge State")]
     public float chargeTime;
     public float chargeSpeed;
+
+    [Header("Attack State")]
+    public float attackDetectDistance;
+    public float damageAmount;
+
 }

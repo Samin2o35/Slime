@@ -42,6 +42,11 @@ public class EnemyChargeState : EnemyBaseState
         }
         else
         {
+            if(enemy.CheckForAttackTarget())
+            {
+                enemy.SwitchState(enemy.attackState);
+            }
+
             Charge();
         }
     }

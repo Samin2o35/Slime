@@ -12,12 +12,13 @@ public class Enemy : MonoBehaviour
     public EnemyPatrolState patrolState;
     public EnemyDetectedPlayerState playerDetectedState;
     public EnemyChargeState chargeState;
+    public EnemyAttackState attackState;
 
     [Header("Enemy Essentials")]
     public Rigidbody2D enemyRb;
     public Transform ledgeDetector;
     public GameObject alert;
-    public LayerMask groundLayer, obstacleLayer, playerLayer;
+    public LayerMask groundLayer, obstacleLayer, playerLayer, damageableLayer;
     public EnemyStats enemyStats;
 
     [Header("Enemy Variables")]
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour
         patrolState = new EnemyPatrolState(this, "patrol");
         playerDetectedState = new EnemyDetectedPlayerState(this, "playerDetected");
         chargeState = new EnemyChargeState(this, "charge");
+        attackState = new EnemyAttackState(this, "attack");
 
         currentState = patrolState;
         currentState.Enter();
@@ -80,6 +82,21 @@ public class Enemy : MonoBehaviour
             return false;
         }
     }
+
+    public bool CheckForAttackTarget()
+    {
+        RaycastHit2D hitAttackTarget = Physics2D.Raycast(ledgeDetector.position, facingDirection == 1 ?
+            Vector2.right : Vector2.left, enemyStats.attackDetectDistance, damageableLayer);
+
+        if (hitAttackTarget.collider == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     #endregion
 
     public void SwitchState(EnemyBaseState newState)
@@ -99,13 +116,18 @@ public class Enemy : MonoBehaviour
 
         // player check
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(ledgeDetector.position, (facingDirection == 1? Vector2.right : Vector2.left) 
+        Gizmos.DrawRay(ledgeDetector.position, (facingDirection == 1 ? Vector2.right : Vector2.left)
             * enemyStats.playerDetectDistance);
 
         // obstacle check
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(ledgeDetector.position, (facingDirection == 1? Vector2.right : Vector2.left)
             * enemyStats.obstacleDistance);
+
+        // attack check
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(ledgeDetector.position, (facingDirection == 1 ? Vector2.right : Vector2.left)
+            * enemyStats.attackDetectDistance);
     }
     #endregion
 }
