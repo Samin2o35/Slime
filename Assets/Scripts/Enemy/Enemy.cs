@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     [Header("Enemy Essentials")]
     public Rigidbody2D enemyRb;
     public Transform ledgeDetector;
+    public Animator enemyAnim;
     public GameObject alert;
     public LayerMask groundLayer, obstacleLayer, playerLayer, damageableLayer;
     public EnemyStats enemyStats;
@@ -105,6 +106,16 @@ public class Enemy : MonoBehaviour
         currentState = newState;
         currentState.Enter();
         stateTime = Time.time;
+    }
+
+    public void AnimationFinishedTrigger()
+    {
+        currentState.AnimationFinishedTrigger();
+    }
+
+    public void AnimationAttackTrigger()
+    {
+        currentState.AnimationAttackTrigger();
     }
 
     #region Debugging Region

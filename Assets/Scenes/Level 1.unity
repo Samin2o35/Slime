@@ -299,6 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyRb: {fileID: 174465969}
   ledgeDetector: {fileID: 708047702}
+  enemyAnim: {fileID: 174465971}
   alert: {fileID: 1566258719}
   groundLayer:
     serializedVersion: 2

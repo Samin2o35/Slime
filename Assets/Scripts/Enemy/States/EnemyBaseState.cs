@@ -15,7 +15,7 @@ public class EnemyBaseState
 
     public virtual void Enter() 
     {
-        Debug.Log("Entered " + animationName);
+        enemy.enemyAnim.SetBool(animationName, true);
     }
     
     public virtual void LogicUpdate() 
@@ -27,9 +27,19 @@ public class EnemyBaseState
     {
 
     }
-    
+
+    public virtual void AnimationFinishedTrigger()
+    {
+        
+    }
+
+    public virtual void AnimationAttackTrigger()
+    {
+        
+    }
+
     public virtual void Exit() 
     {
-
+        enemy.enemyAnim.SetBool(animationName, false);
     }
 }
