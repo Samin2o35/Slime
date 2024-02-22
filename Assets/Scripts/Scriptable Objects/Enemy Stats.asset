@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Enemy Stats
   m_EditorClassIdentifier: 
   maxHealth: 20
+  deathParticle: {fileID: 7877132322080695343, guid: 4cb839f4dd114bf49ad0141fa82ebf73, type: 3}
+  deathDebris: []
   groundDistance: 0.3
   obstacleDistance: 0.25
   enemyMoveSpeed: 1
@@ -25,3 +27,7 @@ MonoBehaviour:
   damageAmount: 5
   knockbackAngle: {x: 2, y: 2}
   knockbackForce: 0.5
+  dodgeAngle: {x: 2, y: 1}
+  dodgeForce: 5
+  dodgeDetectDistance: 1
+  dodgeCooldown: 1

@@ -7,6 +7,10 @@ public class EnemyStats : ScriptableObject
 {
     [Header("General Stats")]
     public float maxHealth = 20;
+
+    [Header("Prefabs")]
+    public GameObject deathParticle;
+    public GameObject[] deathDebris;
     
     [Header("Patrol State")]
     public float groundDistance;
@@ -27,5 +31,11 @@ public class EnemyStats : ScriptableObject
     public float damageAmount;
     public Vector2 knockbackAngle;
     public float knockbackForce;
+
+    [Header("Dodge State")]
+    public Vector2 dodgeAngle;
+    public float dodgeForce;
+    public float dodgeDetectDistance;
+    public float dodgeCooldown;
 
 }

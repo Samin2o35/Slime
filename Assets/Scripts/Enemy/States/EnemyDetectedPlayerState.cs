@@ -29,7 +29,11 @@ public class EnemyDetectedPlayerState : EnemyBaseState
     {
         base.LogicUpdate();
 
-        if(!enemy.CheckForPlayer())
+        if (enemy.CheckIfShouldDodge())
+        {
+            enemy.SwitchState(enemy.dodgeState);
+        }
+        else if (!enemy.CheckForPlayer())
         {
             enemy.SwitchState(enemy.patrolState);
         }

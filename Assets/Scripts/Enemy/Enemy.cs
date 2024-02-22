@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable
 {
     #region Variables
-    
+
     [Header("Enemy States")]
     public EnemyBaseState currentState;
 
@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour, IDamageable
     public EnemyChargeState chargeState;
     public EnemyAttackState attackState;
     public EnemyDamagedState damagedState;
+    public EnemyDeathState deathState;
+    public EnemyDodgeState dodgeState;
 
     [Header("Enemy Essentials")]
     public Rigidbody2D enemyRb;
@@ -28,6 +30,11 @@ public class Enemy : MonoBehaviour, IDamageable
     [Header("Enemy Variables")]
     public int facingDirection = 1;
     public float stateTime;
+
+    [Header("Item Drop Variables")]
+    public GameObject[] itemDrops;
+    public float dropForce;
+    public float torque;
     #endregion
 
     #region Unity Callbacks
@@ -43,6 +50,8 @@ public class Enemy : MonoBehaviour, IDamageable
         chargeState = new EnemyChargeState(this, "charge");
         attackState = new EnemyAttackState(this, "attack");
         damagedState = new EnemyDamagedState(this, "damaged");
+        deathState = new EnemyDeathState(this, "death");
+        dodgeState = new EnemyDodgeState(this, "dodge");
 
         currentState = patrolState;
         currentState.Enter();
@@ -62,10 +71,10 @@ public class Enemy : MonoBehaviour, IDamageable
     #region Enemy Checks
     public bool CheckForTerrain()
     {
-        RaycastHit2D hitGround = Physics2D.Raycast(ledgeDetector.position, Vector2.down, 
+        RaycastHit2D hitGround = Physics2D.Raycast(ledgeDetector.position, Vector2.down,
             enemyStats.groundDistance, groundLayer);
 
-        RaycastHit2D hitObstacle = Physics2D.Raycast(ledgeDetector.position, facingDirection == 1?
+        RaycastHit2D hitObstacle = Physics2D.Raycast(ledgeDetector.position, facingDirection == 1 ?
             Vector2.right : Vector2.left, enemyStats.obstacleDistance, obstacleLayer);
 
         if (hitGround.collider == null || hitObstacle.collider == true)
@@ -80,8 +89,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public bool CheckForPlayer()
     {
-        RaycastHit2D hitPlayer = Physics2D.Raycast(ledgeDetector.position, facingDirection == 1? 
-            Vector2.right : Vector2.left ,enemyStats.playerDetectDistance, playerLayer);
+        RaycastHit2D hitPlayer = Physics2D.Raycast(ledgeDetector.position, facingDirection == 1 ?
+            Vector2.right : Vector2.left, enemyStats.playerDetectDistance, playerLayer);
 
         if (hitPlayer.collider == true)
         {
@@ -90,6 +99,24 @@ public class Enemy : MonoBehaviour, IDamageable
         else
         {
             return false;
+        }
+    }
+
+    public bool CheckIfShouldDodge()
+    {
+        RaycastHit2D hitPlayer = Physics2D.Raycast(ledgeDetector.position, facingDirection == 1 ?
+            Vector2.right : Vector2.left, enemyStats.dodgeDetectDistance, playerLayer);
+        
+        // trigger dodge only if player attacking
+        bool aggroPlayer = facingDirection > 0 && Input.GetAxis("Horizontal") < 0
+            || facingDirection < 0 && Input.GetAxis("Horizontal") > 0;
+        if(hitPlayer && aggroPlayer)
+        {
+            return true;
+        }
+        else 
+        {
+            return false; 
         }
     }
 
@@ -123,6 +150,16 @@ public class Enemy : MonoBehaviour, IDamageable
         facingDirection = -facingDirection;
     }
 
+    public void Instantiate(GameObject prefab, float force, float torque)
+    {
+        Rigidbody2D itemRb = Instantiate(prefab, transform.position, 
+            Quaternion.identity).GetComponent<Rigidbody2D>();
+
+        Vector2 dropVeloctiy = new Vector2(Random.Range(-0.5f, 0.5f), 1) * dropForce;
+        itemRb.AddForce(dropVeloctiy, ForceMode2D.Impulse);
+        itemRb.AddTorque(torque, ForceMode2D.Impulse);
+    }
+
     #region Animation Triggers Region
     public void AnimationFinishedTrigger()
     {
@@ -147,8 +184,16 @@ public class Enemy : MonoBehaviour, IDamageable
         hitParticle.Play("Enemy - HitParticle");
         damagedState.kBForce = kBForce;
         damagedState.kBAngle = kBAngle;
-        SwitchState(damagedState);
         currentHealth -= damageAmount;
+
+        if(currentHealth < 0)
+        {
+            SwitchState(deathState);
+        }
+        else
+        {
+            SwitchState(damagedState);
+        }
     }
     #endregion
 

@@ -46,6 +46,10 @@ public class EnemyChargeState : EnemyBaseState
             {
                 enemy.SwitchState(enemy.attackState);
             }
+            else if(enemy.CheckIfShouldDodge()) 
+            {
+                enemy.SwitchState(enemy.dodgeState);
+            }
 
             Charge();
         }
@@ -53,7 +57,7 @@ public class EnemyChargeState : EnemyBaseState
 
     private void Charge() 
     {
-        enemy.enemyRb.velocity = new Vector2(enemy.enemyStats.chargeSpeed * enemy.facingDirection,
-            enemy.enemyRb.velocity.y);
+        enemy.enemyRb.velocity = new Vector2(enemy.enemyStats.chargeSpeed 
+            * enemy.facingDirection, enemy.enemyRb.velocity.y);
     }
 }

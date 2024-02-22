@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 14719779}
   - component: {fileID: 14719780}
   - component: {fileID: 14719781}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: AoE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,6 +402,9 @@ MonoBehaviour:
   currentHealth: 0
   facingDirection: 1
   stateTime: 0
+  itemDrops: []
+  dropForce: 3
+  torque: 3
 --- !u!95 &174465971
 Animator:
   serializedVersion: 5
@@ -733,7 +736,7 @@ GameObject:
   - component: {fileID: 1028533610}
   - component: {fileID: 1028533609}
   m_Layer: 0
-  m_Name: Hit Particle
+  m_Name: Enemy Hit Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1248,7 +1251,7 @@ GameObject:
   - component: {fileID: 1693284372}
   - component: {fileID: 1693284371}
   m_Layer: 0
-  m_Name: Hit Particle
+  m_Name: Player Hit Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
