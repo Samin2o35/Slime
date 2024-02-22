@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public Rigidbody2D enemyRb;
     public Transform ledgeDetector;
     public Animator enemyAnim;
+    public Animator hitParticle;
     public GameObject alert;
     public LayerMask groundLayer, obstacleLayer, playerLayer, damageableLayer;
     public EnemyStats enemyStats;
@@ -143,6 +144,7 @@ public class Enemy : MonoBehaviour, IDamageable
     // enemy takes damage
     public void Damage(float damageAmount, float kBForce, Vector2 kBAngle)
     {
+        hitParticle.Play("Enemy - HitParticle");
         damagedState.kBForce = kBForce;
         damagedState.kBAngle = kBAngle;
         SwitchState(damagedState);
