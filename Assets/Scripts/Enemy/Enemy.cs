@@ -116,6 +116,13 @@ public class Enemy : MonoBehaviour, IDamageable
         stateTime = Time.time;
     }
 
+    public void Rotate()
+    {
+        transform.Rotate(0, 180, 0);
+        facingDirection = -facingDirection;
+    }
+
+    #region Animation Triggers Region
     public void AnimationFinishedTrigger()
     {
         currentState.AnimationFinishedTrigger();
@@ -125,7 +132,9 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         currentState.AnimationAttackTrigger();
     }
+    #endregion
 
+    #region Damage Region
     public void Damage(float damageAmount)
     {
         
@@ -139,6 +148,7 @@ public class Enemy : MonoBehaviour, IDamageable
         SwitchState(damagedState);
         currentHealth -= damageAmount;
     }
+    #endregion
 
     #region Debugging Region
     private void OnDrawGizmos()

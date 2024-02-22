@@ -26,7 +26,7 @@ public class EnemyPatrolState : EnemyBaseState
 
         if (enemy.CheckForTerrain())
         {
-            Rotate();
+            enemy.Rotate();
         }
     }
 
@@ -42,11 +42,5 @@ public class EnemyPatrolState : EnemyBaseState
         {
             enemy.enemyRb.velocity = new Vector2(-enemy.enemyStats.enemyMoveSpeed, enemy.enemyRb.velocity.y);
         }
-    }
-
-    private void Rotate()
-    {
-        enemy.transform.Rotate(0, 180, 0);
-        enemy.facingDirection = -enemy.facingDirection;
     }
 }

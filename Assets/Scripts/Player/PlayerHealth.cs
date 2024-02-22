@@ -19,7 +19,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public void Damage(float damageAmount)
     {
         hitPraticleAnim.Play("Enemy - HitParticle");
-        Debug.Log("hit");
         health -= damageAmount;
     }
 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28c1235cda79ed94aaee554986885c02, type: 3}
   m_Name: Enemy Stats
   m_EditorClassIdentifier: 
+  maxHealth: 20
   groundDistance: 0.3
   obstacleDistance: 0.25
   enemyMoveSpeed: 1
