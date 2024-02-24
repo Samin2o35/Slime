@@ -6,11 +6,11 @@ using UnityEngine;
 public class EnemyDamagedState : EnemyBaseState
 {
     // how far enemy knocked back after getting hit
-    public float kBForce;
-    public Vector2 kBAngle;
+    public float kBForce = 0.25f;
+    public Vector2 kBAngle = new Vector2(3,5);
 
     // how long enemy stunned after getting hit
-    public float stunTime;
+    public float stunTime = 2;
     public bool isStunned;
     
     public EnemyDamagedState(Enemy enemy, string animationName) :
